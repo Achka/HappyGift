@@ -1,0 +1,13 @@
+﻿.service-info {
+    display: flex;
+    justify-content:space-between;
+}
+
+.service .service-name {
+    margin: 15px 0;
+    font-size:larger;
+}
+
+.service-info img {
+    margin-right: 15px;
+}
