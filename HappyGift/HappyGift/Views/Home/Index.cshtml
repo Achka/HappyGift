@@ -7,13 +7,13 @@
 <div class="services">
     @foreach (var service in (List<Service>)@ViewData["Services"])
     {
-        <div class="service">
-            <div class="service-name">@service.Name</div> 
-            <div class="service-info">
-                <img src="@service.ImageUrl" height="200" width="200" />
-                <div>@service.Description</div>
-            </div>
-        </div>    
+    <div class="card service">
+        <img class="card-img-top" src="@service.ImageUrl"/>
+        <div class="card-body">
+            <h4 class="card-title">@service.Name</h4>
+            <p class="card-text">@service.Description</p>
+        </div>
+    </div>    
     }
 </div>
 

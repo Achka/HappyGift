@@ -1,13 +1,35 @@
-﻿.service-info {
+﻿.services {
     display: flex;
-    justify-content:space-between;
+    flex-direction: row;
+    justify-content:center;
+    align-items:center;
+    flex-wrap: wrap;
 }
 
-.service .service-name {
-    margin: 15px 0;
-    font-size:larger;
+.service {
+    width: 30vw;
+    margin: 0.5vw;
+    padding: 3vw;
+    display: flex;
+    font-size: 2.5vh;
+    flex-direction: column;
 }
 
-.service-info img {
-    margin-right: 15px;
+.service:hover {
+    box-shadow: 0 0 10px #9e78ff;
+}
+
+.service:hover .card-body .card-title {
+    transform: scale(1.1, 1.1);
+}
+
+.service .card-body .card-title {
+    font-size: 4vh;
+    text-align: center;
+    margin: 3vh 0;
+}
+
+.card-img-top {
+    margin: 0 auto;
+    max-width: 100%;
 }
