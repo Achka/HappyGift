@@ -3,17 +3,15 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using HappyGift.Models;
 using HappyGift.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace HappyGift.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        private readonly ApplicationDbContext _context;
-
-        public HomeController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
+        public HomeController(ApplicationDbContext context, UserManager<HappyGiftUser> userManager) :
+            base(context, userManager)
+        {}
 
         public IActionResult Index()
         {

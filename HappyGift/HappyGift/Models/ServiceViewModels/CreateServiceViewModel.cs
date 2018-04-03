@@ -9,7 +9,7 @@ namespace HappyGift.Models.ServiceViewModels
     public class CreateServiceViewModel
     {
         [Required]
-        [EmailAddress]
+        [DataType(DataType.Text)]
         [Display(Name = "Service Name")]
         public string Name { get; set; }
 

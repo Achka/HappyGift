@@ -24,19 +24,51 @@ namespace HappyGift.Controllers
         private readonly SignInManager<HappyGiftUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
-
+        private readonly RoleManager<IdentityRole> _roleManager;
         public AccountController(
             UserManager<HappyGiftUser> userManager,
             SignInManager<HappyGiftUser> signInManager,
             IEmailSender emailSender,
-            ILogger<AccountController> logger)
+            ILogger<AccountController> logger,
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
+            _roleManager = roleManager;
+            CreateRolesandUsers().Wait();
         }
 
+        private async Task CreateRolesandUsers()
+        {
+
+            bool x = await _roleManager.RoleExistsAsync("Admin");
+            if (!x)
+            {
+
+                // first we create Admin rool    
+                var role = new IdentityRole();
+                role.Name = "Admin";
+                await _roleManager.CreateAsync(role);
+
+                //Here we create a Admin super user who will maintain the website                   
+
+                var user = new HappyGiftUser();
+                user.UserName = "default@default.com";
+                user.Email = "default@default.com";
+
+                var userPWD = "Welcome1!";
+
+                IdentityResult chkUser = await _userManager.CreateAsync(user, userPWD);
+
+                //Add default User to Role Admin    
+                if (chkUser.Succeeded)
+                {
+                    var result1 = await _userManager.AddToRoleAsync(user, "Admin");
+                }
+            }
+        }
         [TempData]
         public string ErrorMessage { get; set; }
 

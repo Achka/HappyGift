@@ -16,6 +16,10 @@ namespace HappyGift.Data
         {
         }
 
+        public DbSet<Gift> Gifts { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<Service> Services { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -27,8 +31,5 @@ namespace HappyGift.Data
             builder.Entity<IdentityUserClaim<string>>().ToTable("Claims");
         }
 
-        public DbSet<Service> Services { get; set; }
-
-        public DbSet<Gift> Gifts { get; set; }
     }
 }

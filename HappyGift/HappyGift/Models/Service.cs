@@ -8,6 +8,10 @@ namespace HappyGift.Models
 {
     public class Service
     {
+        public Service()
+        {
+
+        }
         [Key]
         public long Id { get; set; }
 
@@ -19,6 +23,7 @@ namespace HappyGift.Models
         
         public string Description { get; set; }
 
-        public virtual ICollection<Gift> Gifts { get; set; }
+        public virtual ICollection<GiftServices> GiftServices { get; set; }
+        public virtual ICollection<CartServices> CartServices { get; set; }
     }
 }

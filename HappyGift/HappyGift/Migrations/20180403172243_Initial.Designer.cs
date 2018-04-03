@@ -9,17 +9,50 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 using Microsoft.EntityFrameworkCore.ValueGeneration;
 using System;
 
-namespace HappyGift.Data.Migrations
+namespace HappyGift.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180403172243_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.0-rtm-26452")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("HappyGift.Models.Cart", b =>
+                {
+                    b.Property<int>("CartId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("CartId");
+
+                    b.ToTable("Carts");
+                });
+
+            modelBuilder.Entity("HappyGift.Models.CartServices", b =>
+                {
+                    b.Property<int>("CartServiceId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CartId");
+
+                    b.Property<int>("ServiceId");
+
+                    b.Property<long?>("ServiceId1");
+
+                    b.HasKey("CartServiceId");
+
+                    b.HasIndex("CartId");
+
+                    b.HasIndex("ServiceId1");
+
+                    b.ToTable("CartServices");
+                });
 
             modelBuilder.Entity("HappyGift.Models.Gift", b =>
                 {
@@ -34,11 +67,31 @@ namespace HappyGift.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ServiceId");
-
                     b.HasIndex("UserId");
 
                     b.ToTable("Gifts");
+                });
+
+            modelBuilder.Entity("HappyGift.Models.GiftServices", b =>
+                {
+                    b.Property<int>("GiftServiceId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("GiftId");
+
+                    b.Property<long?>("GiftId1");
+
+                    b.Property<int>("ServiceId");
+
+                    b.Property<long?>("ServiceId1");
+
+                    b.HasKey("GiftServiceId");
+
+                    b.HasIndex("GiftId1");
+
+                    b.HasIndex("ServiceId1");
+
+                    b.ToTable("GiftServices");
                 });
 
             modelBuilder.Entity("HappyGift.Models.Service", b =>
@@ -233,16 +286,34 @@ namespace HappyGift.Data.Migrations
                     b.HasDiscriminator().HasValue("HappyGiftUser");
                 });
 
-            modelBuilder.Entity("HappyGift.Models.Gift", b =>
+            modelBuilder.Entity("HappyGift.Models.CartServices", b =>
                 {
-                    b.HasOne("HappyGift.Models.Service", "Service")
-                        .WithMany("Gifts")
-                        .HasForeignKey("ServiceId")
+                    b.HasOne("HappyGift.Models.Cart", "Cart")
+                        .WithMany("CartServices")
+                        .HasForeignKey("CartId")
                         .OnDelete(DeleteBehavior.Cascade);
 
+                    b.HasOne("HappyGift.Models.Service", "Service")
+                        .WithMany("CartServices")
+                        .HasForeignKey("ServiceId1");
+                });
+
+            modelBuilder.Entity("HappyGift.Models.Gift", b =>
+                {
                     b.HasOne("HappyGift.Models.HappyGiftUser", "User")
                         .WithMany("Gifts")
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("HappyGift.Models.GiftServices", b =>
+                {
+                    b.HasOne("HappyGift.Models.Gift", "Gift")
+                        .WithMany("GiftServices")
+                        .HasForeignKey("GiftId1");
+
+                    b.HasOne("HappyGift.Models.Service", "Service")
+                        .WithMany("GiftServices")
+                        .HasForeignKey("ServiceId1");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
