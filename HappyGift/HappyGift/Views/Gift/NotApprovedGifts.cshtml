@@ -1,0 +1,23 @@
+﻿@model List<HappyGift.Models.GiftViewModels.GiftViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+@foreach (var gift in Model)
+{
+    <form method="post">
+        <h4>User @gift.UserEmail ordered: </h4>
+        <ul>
+            @foreach (var service in gift.Services)
+            {
+                <li> @service </li>
+            }
+        </ul>
+ 
+        <p class="button">
+            @Html.ActionLink("Approve", "Approve", "Gift", new { GiftId = gift.GiftId }, "")
+        </p>
+    </form>
+}
+
+

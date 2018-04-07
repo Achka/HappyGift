@@ -6,32 +6,21 @@ using Microsoft.AspNetCore.Mvc;
 using HappyGift.Data;
 using Microsoft.AspNetCore.Identity;
 using HappyGift.Models;
-using Microsoft.EntityFrameworkCore;
-
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using Microsoft.AspNetCore.Authorization;
+using HappyGift.Models.GiftViewModels;
 
 namespace HappyGift.Controllers
 {
-    public class GiftController : Controller
+    public class GiftController : BaseController
     {
-        private readonly ApplicationDbContext _context;
-        private readonly UserManager<HappyGiftUser> _userManager;
-
         public GiftController(ApplicationDbContext context, UserManager<HappyGiftUser> userManager)
-        {
-
-            _context = context;
-            _userManager = userManager;
-
-
-            
-        }
+            :base(context, userManager) {}
 
         public async Task<IActionResult> Index()
         {
-            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
-            var id = currentUser.Id;
+            var currentUser = await GetCurrentUser();
 
+            //var id = currentUser.Id;
             //_context.Add(new Gift
             //{
             //    UserId = id,
@@ -94,12 +83,48 @@ namespace HappyGift.Controllers
 
             //_context.SaveChanges();
 
-            ViewData["Gifts"] = _context.Gifts.Where(g => g.UserId == currentUser.Id && !g.IsAcceptedByAdmin)
-                                              .Select(g => g.GiftServices.Select(s => s.Service.Name).ToList())
+            var model = _context.Gifts.Where(g => g.UserId == currentUser.Id && g.IsAcceptedByAdmin)
+                                              .Select(g => new GiftViewModel
+                                              {
+                                                  UserEmail = currentUser.Email,
+                                                  Services = g.GiftServices.Select(s => s.Service.Name).ToList()
+                                              })
                                               .ToList();
 
 
-            return View();
+            return View(model);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public IActionResult NotApprovedGifts()
+        {
+            var model = GetNotApprovedGifts();
+            return View("NotApprovedGifts", model);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public IActionResult Approve(int giftId)
+        {
+            _context.Gifts.FirstOrDefault(g => g.Id == giftId).IsAcceptedByAdmin = true;
+            _context.SaveChanges();
+
+            var model = GetNotApprovedGifts();
+
+            return View("NotApprovedGifts", model);
+        }
+
+        private List<GiftViewModel> GetNotApprovedGifts()
+        {
+            return _context.Gifts.Where(g => !g.IsAcceptedByAdmin)
+                                              .Select(g => new GiftViewModel
+                                              {
+                                                  GiftId = g.Id,
+                                                  UserEmail = g.User.Email,
+                                                  Services = g.GiftServices.Select(s => s.Service.Name).ToList()
+                                              })
+                                              .ToList();
         }
 
     }

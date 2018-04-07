@@ -15,6 +15,7 @@ namespace HappyGift.Controllers
     public class CartController : BaseController
     {
         private readonly ICartManager _cartManager;
+
         public IActionResult Index()
         {
             return View(GetCartsByUser());
@@ -25,6 +26,7 @@ namespace HappyGift.Controllers
         {
             _cartManager = new CartManager(context);
         }
+
         public async Task<IActionResult> AddToCartAsync(int serviceId)
         {
             var userId = await GetCurrentUser();
@@ -43,6 +45,7 @@ namespace HappyGift.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index", "Cart");
         }
+
         private List<CartItemViewModel> GetCartsByUser()
         {
             var carts =  _context.Carts.Where(cart => cart.UserId == _userManager.GetUserId(HttpContext.User));
