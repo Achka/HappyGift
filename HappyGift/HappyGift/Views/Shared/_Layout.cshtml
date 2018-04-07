@@ -28,9 +28,18 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">HappyGift</a>
-                <a asp-area="" asp-controller="Service" asp-action="Index" class="navbar-brand">Add service</a>
-                <a asp-area="" asp-controller="Gift" asp-action="Index" class="navbar-brand">Gifts history</a>
-                <a asp-area="" asp-controller="Gift" asp-action="NotApprovedGifts" class="navbar-brand">Approve gifts</a>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @if (User.IsInRole("Admin")) { 
+                        <a asp-area="" asp-controller="Service" asp-action="Index" class="navbar-brand">Add service</a>
+                        <a asp-area="" asp-controller="Gift" asp-action="NotApprovedGifts" class="navbar-brand">Approve gifts</a>
+                    }
+                    else
+                    {
+                        <a asp-area="" asp-controller="Gift" asp-action="Index" class="navbar-brand">Gifts history</a>
+                    }
+                }
+
             </div>
             <div class="navbar-collapse collapse">
                 @await Html.PartialAsync("_LoginPartial")
