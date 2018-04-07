@@ -1,0 +1,21 @@
+﻿@using System.Collections.Generic
+@{
+    ViewData["Title"] = "View";
+}
+
+<h2>Gifts history of orders</h2>
+
+@{var gifts = (List<List<string>>)@ViewData["Gifts"];}
+
+<div class="old-gifts">
+    @for (int i = 0; i < gifts.Count; i++)
+    {
+        <div> Gift № @(i+1):  </div>
+        @foreach (var gift in gifts[i])
+        {
+            <div> @gift  </div>
+        }
+        <br>
+    }
+</div>
+

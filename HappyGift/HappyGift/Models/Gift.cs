@@ -17,8 +17,6 @@ namespace HappyGift.Models
 
         public string UserId { get; set; }
 
-        public long ServiceId { get; set; }
-
         public bool IsAcceptedByAdmin { get; set; }
 
         public virtual HappyGiftUser User { get; set; }

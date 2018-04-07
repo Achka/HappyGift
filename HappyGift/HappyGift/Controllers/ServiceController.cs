@@ -38,7 +38,7 @@ namespace HappyGift.Controllers
                 _context.SaveChanges();
                 return RedirectToAction("Index","Home");
             }    
-            return View(model);
+            return Ok();
         }
     }
 }
