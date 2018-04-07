@@ -16,6 +16,11 @@ namespace HappyGift.Controllers
             base(context, userManager)
         { }
 
+        public IActionResult Index()
+        {
+            return View();
+        }
+
         [HttpGet]
         public IActionResult CreateService(int? id)
         {
