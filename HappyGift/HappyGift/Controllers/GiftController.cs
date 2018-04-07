@@ -92,9 +92,9 @@ namespace HappyGift.Controllers
             //    ServiceId = 4
             //});
 
-            _context.SaveChanges();
-           var d = _context.Gifts.Include(g => g.GiftServices);
-            ViewData["Gifts"] = _context.Gifts.Include(g => g.GiftServices).Where(g => g.UserId == currentUser.Id && !g.IsAcceptedByAdmin)
+            //_context.SaveChanges();
+
+            ViewData["Gifts"] = _context.Gifts.Where(g => g.UserId == currentUser.Id && !g.IsAcceptedByAdmin)
                                               .Select(g => g.GiftServices.Select(s => s.Service.Name).ToList())
                                               .ToList();
 
