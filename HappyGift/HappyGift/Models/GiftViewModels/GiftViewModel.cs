@@ -1,7 +1,6 @@
-﻿using System;
+﻿using HappyGift.Models.ServiceViewModels;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace HappyGift.Models.GiftViewModels
 {
@@ -9,6 +8,9 @@ namespace HappyGift.Models.GiftViewModels
     {
         public string UserEmail { get; set; }
         public long GiftId { get; set; }
-        public List<string> Services { get; set; }
+        public decimal TotalPrice { get; set; }
+        public bool IsAcceptedByAdmin { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public List<ServiceBaseViewModel> Services { get; set; }
     }
 }

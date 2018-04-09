@@ -1,23 +1,19 @@
-﻿@model List<HappyGift.Models.GiftViewModels.GiftViewModel>
-@{
-    ViewData["Title"] = "Index";
-}
+﻿@using System.Globalization
+@model List<HappyGift.Models.GiftViewModels.GiftViewModel>
 
 @foreach (var gift in Model)
 {
-    <form method="post">
-        <h4>User @gift.UserEmail ordered: </h4>
-        <ul>
-            @foreach (var service in gift.Services)
-            {
-                <li> @service </li>
-            }
-        </ul>
- 
-        <p class="button">
-            @Html.ActionLink("Approve", "Approve", "Gift", new { GiftId = gift.GiftId }, "")
-        </p>
-    </form>
+    <h4>User @gift.UserEmail ordered: </h4>
+    <div>Total Price: @gift.TotalPrice USD</div>
+    <h5>Requested Date: @gift.CreatedDate.ToString("MMM dd yyyy hh:mm tt", new CultureInfo("en-US"))</h5>
+    <ul>
+        @foreach (var service in gift.Services)
+        {
+            <li> @service.ServiceName </li>
+        }
+    </ul>
+
+    <p class="button">
+        <a asp-controller="Gift" asp-action="Approve" asp-route-giftId="@gift.GiftId" class="btn btn-success">Approve</a>
+    </p>
 }
-
-

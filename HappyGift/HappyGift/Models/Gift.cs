@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace HappyGift.Models
 {
@@ -18,6 +16,8 @@ namespace HappyGift.Models
         public string UserId { get; set; }
 
         public bool IsAcceptedByAdmin { get; set; }
+
+        public DateTime CreatedDate { get; set; }
 
         public virtual HappyGiftUser User { get; set; }
 

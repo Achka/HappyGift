@@ -1,10 +1,8 @@
 ﻿using HappyGift.Data;
 using HappyGift.Managers.Interfaces;
 using HappyGift.Models;
-using System;
-using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace HappyGift.Managers
 {
@@ -17,8 +15,8 @@ namespace HappyGift.Managers
         }
         public bool AddServiceToCart(int serviceId, int cartId)
         {
-            var cart =_contex.Carts.Where(c => c.CartId == cartId).FirstOrDefault();
-            if(cart == null)
+            var cart = _contex.Carts.Include(c => c.CartServices).Single(c => c.CartId == cartId);
+            if (cart == null)
             {
                 return false;
             }
@@ -31,19 +29,31 @@ namespace HappyGift.Managers
             return true;
         }
 
-        public bool CreateNewCart(string userId)
+        public Cart CreateNewCart(string userId)
         {
-            _contex.Carts.Add(new Cart
+            var cart = _contex.Carts.Add(new Cart
             {
                 UserId = userId,
             });
             _contex.SaveChanges();
-            return true;
+            return cart.Entity;
         }
 
         public Cart GetCartByUserId(string userId)
         {
-            return _contex.Carts.Where(c => c.UserId == userId).FirstOrDefault();
+            return _contex.Carts.Where(c => c.UserId == userId)
+                .Include(c=> c.CartServices)
+                .ThenInclude(cs => cs.Service)
+                .FirstOrDefault();
+        }
+
+        public void RemoveFromCart(int cartServiceId, string userId)
+        {
+            var cart = GetCartByUserId(userId);
+            var toDelete = cart.CartServices.Where(cs => cs.CartServiceId == cartServiceId).FirstOrDefault();
+            var dbEntity = _contex.Entry(toDelete);
+            dbEntity.State = EntityState.Deleted;
+            _contex.SaveChanges();
         }
     }
 }

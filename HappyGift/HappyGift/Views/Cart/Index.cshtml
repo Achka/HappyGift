@@ -1,11 +1,28 @@
-﻿@model List<CartItemViewModel>
+﻿@model HappyGift.Models.CartViewModels.CartListViewModel
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Cart";
 }
-
-<h2>Cart</h2>
-
-@foreach(var item in Model)
-{
-    <div>@item.ServiceName</div>
-}
+<div class="container">
+    <h2>My Cart</h2>
+    @if (Model.CartItems.Any())
+    {
+        <a asp-controller="Gift" asp-action="CreateGift" class="btn btn-success">Create Gift</a>
+        <div>Total Price: @Model.TotalPrice USD</div>
+        <ul class="list-group">
+            @foreach (var item in Model.CartItems)
+            {
+                <li class="list-group-item">
+                    <img src="@item.ServiceImageURL" alt="Service Image" />
+                    <h5>@item.ServiceName</h5>
+                    <div>@item.ServiceDescription</div>
+                    <div>Price: @item.ServicePrice USD</div>
+                    <a asp-controller="Cart" asp-action="RemoveFromCart" asp-route-cartServiceId="@item.ServiceId" class="btn btn-info">Remove From Cart</a>
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <h3>No items in your cart yet.</h3>
+    }
+</div>

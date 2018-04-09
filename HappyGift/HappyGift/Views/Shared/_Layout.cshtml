@@ -30,14 +30,15 @@
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">HappyGift</a>
                 @if (User.Identity.IsAuthenticated)
                 {
-                    @if (User.IsInRole("Admin")) { 
+                    @if (User.IsInRole("Admin"))
+                    {
                         <a asp-area="" asp-controller="Service" asp-action="Index" class="navbar-brand">Add service</a>
                         <a asp-area="" asp-controller="Gift" asp-action="NotApprovedGifts" class="navbar-brand">Approve gifts</a>
                     }
-                    else
-                    {
-                        <a asp-area="" asp-controller="Gift" asp-action="Index" class="navbar-brand">Gifts history</a>
-                    }
+                    
+                    <a asp-area="" asp-controller="Gift" asp-action="Index" class="navbar-brand">Gifts history</a>
+                    <a asp-area="" asp-controller="Cart" asp-action="Index" class="navbar-brand"><span class="glyphicon glyphicon-shopping-cart"></span> <span id="cartItems"class="badge"></span></a>
+                    
                 }
 
             </div>

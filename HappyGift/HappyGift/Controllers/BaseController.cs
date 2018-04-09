@@ -18,14 +18,10 @@ namespace HappyGift.Controllers
         {
             _context = context;
             _userManager = userManager;
-            //if (HttpContext?.User != null)
-            //{
-            //    _currentUser = _userManager.GetUserAsync(HttpContext.User).Result;
-            //}
         }
         protected Task<HappyGiftUser> GetCurrentUser()
         {
-            return _userManager.GetUserAsync(HttpContext.User);
+            return _userManager.GetUserAsync(User);
         }
     }
 }

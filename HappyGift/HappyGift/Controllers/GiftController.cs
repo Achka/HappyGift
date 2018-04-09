@@ -8,90 +8,32 @@ using Microsoft.AspNetCore.Identity;
 using HappyGift.Models;
 using Microsoft.AspNetCore.Authorization;
 using HappyGift.Models.GiftViewModels;
+using HappyGift.Managers.Interfaces;
+using HappyGift.Managers;
+using Microsoft.EntityFrameworkCore;
+using HappyGift.Mappers;
 
 namespace HappyGift.Controllers
 {
     public class GiftController : BaseController
     {
+        private readonly ICartManager _cartManager;
+        private readonly IGiftManager _giftManager;
         public GiftController(ApplicationDbContext context, UserManager<HappyGiftUser> userManager)
-            :base(context, userManager) {}
+            :base(context, userManager)
+        {
+            _cartManager = new CartManager(context);
+            _giftManager = new GiftManager(context, _cartManager);
+        }
 
         public async Task<IActionResult> Index()
         {
             var currentUser = await GetCurrentUser();
 
-            //var id = currentUser.Id;
-            //_context.Add(new Gift
-            //{
-            //    UserId = id,
-            //    IsAcceptedByAdmin = false
-            //});
-            //_context.Add(new Gift
-            //{
-            //    UserId = id,
-            //    IsAcceptedByAdmin = false
-            //});
 
-            //_context.Add(new Gift
-            //{
-            //    UserId = id,
-            //    IsAcceptedByAdmin = true
-            //});
-
-            //_context.Add(new Gift
-            //{
-            //    UserId = id,
-            //    IsAcceptedByAdmin = true
-            //});
-
-            //_context.Add(new GiftServices
-            //{
-            //    GiftId = 1,
-            //    ServiceId = 1
-            //});
-
-            //_context.Add(new GiftServices
-            //{
-            //    GiftId = 1,
-            //    ServiceId = 2
-            //});
-
-            //_context.Add(new GiftServices
-            //{
-            //    GiftId = 2,
-            //    ServiceId = 3
-            //});
-
-            //_context.Add(new GiftServices
-            //{
-            //    GiftId = 2,
-            //    ServiceId = 4
-            //});
-
-            //_context.Add(new GiftServices
-            //{
-            //    GiftId = 3,
-            //    ServiceId = 2
-            //});
-
-
-            //_context.Add(new GiftServices
-            //{
-            //    GiftId = 4,
-            //    ServiceId = 4
-            //});
-
-            //_context.SaveChanges();
-
-            var model = _context.Gifts.Where(g => g.UserId == currentUser.Id && g.IsAcceptedByAdmin)
-                                              .Select(g => new GiftViewModel
-                                              {
-                                                  UserEmail = currentUser.Email,
-                                                  Services = g.GiftServices.Select(s => s.Service.Name).ToList()
-                                              })
+            var model = _giftManager.GetGiftsByUser(currentUser.Id)
+                                              .Select(g => g.ToGiftViewModel())
                                               .ToList();
-
-
             return View(model);
         }
 
@@ -105,25 +47,23 @@ namespace HappyGift.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public IActionResult Approve(int giftId)
+        public IActionResult Approve(long giftId)
         {
-            _context.Gifts.FirstOrDefault(g => g.Id == giftId).IsAcceptedByAdmin = true;
-            _context.SaveChanges();
+            _giftManager.ApproveGift(giftId);
+            return RedirectToAction("NotApprovedGifts", "Gift");
+        }
 
-            var model = GetNotApprovedGifts();
-
-            return View("NotApprovedGifts", model);
+        public async Task<IActionResult> CreateGift()
+        {
+            var currentUser = await GetCurrentUser();
+            _giftManager.CreateGiftFromCart(currentUser.Id);
+            return RedirectToAction("Index", "Gift");
         }
 
         private List<GiftViewModel> GetNotApprovedGifts()
         {
-            return _context.Gifts.Where(g => !g.IsAcceptedByAdmin)
-                                              .Select(g => new GiftViewModel
-                                              {
-                                                  GiftId = g.Id,
-                                                  UserEmail = g.User.Email,
-                                                  Services = g.GiftServices.Select(s => s.Service.Name).ToList()
-                                              })
+            return _giftManager.GetNotApprovedGifts()
+                                              .Select(g => g.ToGiftViewModel())
                                               .ToList();
         }
 

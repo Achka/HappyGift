@@ -1,25 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using HappyGift.Data;
 using HappyGift.Managers;
 using HappyGift.Managers.Interfaces;
+using HappyGift.Mappers;
 using HappyGift.Models;
-using HappyGift.Models.ManageViewModels;
+using HappyGift.Models.CartViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HappyGift.Controllers
 {
+    [Authorize]
     public class CartController : BaseController
     {
         private readonly ICartManager _cartManager;
-
-        public IActionResult Index()
-        {
-            return View(GetCartsByUser());
-        }
 
         public CartController(ApplicationDbContext context, UserManager<HappyGiftUser> userManager) :
             base(context, userManager)
@@ -27,35 +23,43 @@ namespace HappyGift.Controllers
             _cartManager = new CartManager(context);
         }
 
-        public async Task<IActionResult> AddToCartAsync(int serviceId)
+        public async Task<IActionResult> Index()
         {
-            var userId = await GetCurrentUser();
+            var viewModel = await GetCartsByUser();
+            return View(viewModel);
+        }
 
-            var cart = _cartManager.GetCartByUserId(userId.Id);
-            if (cart != null)
+        public async Task<IActionResult> AddToCart(int serviceId)
+        {
+            var user = await GetCurrentUser();
+            var cart = _cartManager.GetCartByUserId(user.Id);
+            if (cart == null)
             {
-                _cartManager.AddServiceToCart(serviceId, cart.CartId);
+                cart = _cartManager.CreateNewCart(user.Id);
             }
-            else
-            {
-                _cartManager.CreateNewCart(userId.Id);
-            }
-            
-            //_context.Carts.Add(new Models.Cart { ServiceId = serviceId, UserId = _userManager.GetUserId(HttpContext.User) });
-            _context.SaveChanges();
+            _cartManager.AddServiceToCart(serviceId, cart.CartId);
+            return RedirectToAction("Index", "Home");
+        }
+
+        public async Task<IActionResult> RemoveFromCart(int cartServiceId)
+        {
+            var currentUser = await GetCurrentUser();
+            _cartManager.RemoveFromCart(cartServiceId, currentUser.Id);
             return RedirectToAction("Index", "Cart");
         }
 
-        private List<CartItemViewModel> GetCartsByUser()
+        [HttpGet]
+        public async Task<int> GetNumberOfItemsInCart()
         {
-            var carts =  _context.Carts.Where(cart => cart.UserId == _userManager.GetUserId(HttpContext.User));
-            return carts.Select(c =>
-                new CartItemViewModel
-                {
-                    CartId = c.CartId,
-                    //ServiceName = c.Service.Name
-                }
-                ).ToList();
+            var currentUser = await GetCurrentUser();
+            return _cartManager.GetCartByUserId(currentUser.Id).CartServices.Count();
+        }
+
+        private async Task<CartListViewModel> GetCartsByUser()
+        {
+            var currentUser = await GetCurrentUser();
+            var cart = _cartManager.GetCartByUserId(currentUser.Id);
+            return cart.ToCartListViewModel();
         }
     }
 }
