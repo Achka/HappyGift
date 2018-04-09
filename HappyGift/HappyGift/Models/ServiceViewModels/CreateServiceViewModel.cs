@@ -8,6 +8,8 @@ namespace HappyGift.Models.ServiceViewModels
 {
     public class CreateServiceViewModel
     {
+        public long Id {get; set;}
+
         [Required]
         [DataType(DataType.Text)]
         [Display(Name = "Service Name")]
@@ -26,6 +28,6 @@ namespace HappyGift.Models.ServiceViewModels
         [DataType(DataType.Text)]
         [Display(Name = "Description")]
         public string Description { get; set; }
-
+        
     }
 }

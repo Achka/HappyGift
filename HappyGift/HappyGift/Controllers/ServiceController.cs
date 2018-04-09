@@ -6,6 +6,7 @@ using HappyGift.Models;
 using System;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using System.Linq;
 
 namespace HappyGift.Controllers
 {
@@ -16,11 +17,28 @@ namespace HappyGift.Controllers
             base(context, userManager)
         { }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(long serviceId)
         {
-            return View();
-        }
+            CreateServiceViewModel model = new CreateServiceViewModel();
+            if(serviceId == 0)
+            {
+                model.Id = 0;
+            }
+            else // init edit form
+            {
+                model.Id = serviceId;
 
+                var service = _context.Services.Where(c => c.Id == serviceId).FirstOrDefault();
+                
+                model.Name = service.Name;
+                model.Price = service.Price.ToString();
+                model.ImageUrl = service.ImageUrl;
+                model.Description = service.Description;
+            }
+
+            return View(model);
+        }
+        
         [HttpGet]
         public IActionResult CreateService(int? id)
         {
@@ -34,14 +52,25 @@ namespace HappyGift.Controllers
             if (ModelState.IsValid)
             {
                 var service = new Service {
+                    Id = model.Id,
                     Name = model.Name,
                     Price = Convert.ToDecimal(model.Price),
                     ImageUrl = model.ImageUrl,
                     Description = model.Description
                 };
-                _context.Add(service);
-                _context.SaveChanges();
-                return RedirectToAction("Index","Home");
+                if (model.Id == 0)
+                {
+                    // redirect just for testing
+                    return RedirectToAction("Index", "Home");
+                    //_context.Add(service);
+                }
+                else
+                {
+                    // redirect just for testing
+                    return RedirectToAction("Index", "Cart");
+                    //_context.Update(service);
+                }
+                //_context.SaveChanges();
             }    
             return Ok();
         }
