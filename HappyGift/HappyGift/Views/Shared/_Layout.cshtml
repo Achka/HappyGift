@@ -32,7 +32,7 @@
                 {
                     @if (User.IsInRole("Admin"))
                     {
-                        <a asp-area="" asp-controller="Service" asp-action="Index" class="navbar-brand">Add service</a>
+                        <a asp-area="" asp-controller="Service" asp-action="Index"  asp-route-serviceId="0" class="navbar-brand">Add service</a>
                         <a asp-area="" asp-controller="Gift" asp-action="NotApprovedGifts" class="navbar-brand">Approve gifts</a>
                     }
                     

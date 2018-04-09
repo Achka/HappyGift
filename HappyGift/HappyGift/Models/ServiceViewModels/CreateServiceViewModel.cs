@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,6 +9,10 @@ namespace HappyGift.Models.ServiceViewModels
 {
     public class CreateServiceViewModel
     {
+        [HiddenInput(DisplayValue = false)]
+        [DataType(DataType.Text)]
+        public string Id {get; set;}
+
         [Required]
         [DataType(DataType.Text)]
         [Display(Name = "Service Name")]
@@ -26,6 +31,6 @@ namespace HappyGift.Models.ServiceViewModels
         [DataType(DataType.Text)]
         [Display(Name = "Description")]
         public string Description { get; set; }
-
+        
     }
 }

@@ -6,6 +6,7 @@ using HappyGift.Models;
 using System;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using System.Linq;
 
 namespace HappyGift.Controllers
 {
@@ -16,11 +17,29 @@ namespace HappyGift.Controllers
             base(context, userManager)
         { }
 
-        public IActionResult Index()
+        [HttpGet]
+        public IActionResult Index(long serviceId)
         {
-            return View();
-        }
+            CreateServiceViewModel model = new CreateServiceViewModel();
+            if(serviceId == 0)
+            {
+                model.Id = "0";
+            }
+            else // init edit form
+            {
+                model.Id = serviceId.ToString();
 
+                var service = _context.Services.Where(c => c.Id == serviceId).FirstOrDefault();
+                
+                model.Name = service.Name;
+                model.Price = service.Price.ToString();
+                model.ImageUrl = service.ImageUrl;
+                model.Description = service.Description;
+            }
+
+            return View(model);
+        }
+        
         [HttpGet]
         public IActionResult CreateService(int? id)
         {
@@ -33,15 +52,31 @@ namespace HappyGift.Controllers
         {    
             if (ModelState.IsValid)
             {
-                var service = new Service {
-                    Name = model.Name,
-                    Price = Convert.ToDecimal(model.Price),
-                    ImageUrl = model.ImageUrl,
-                    Description = model.Description
-                };
-                _context.Add(service);
+                if (model.Id == "0")
+                {
+                    var service = new Service
+                    {
+                        Name = model.Name,
+                        Price = Convert.ToDecimal(model.Price),
+                        ImageUrl = model.ImageUrl,
+                        Description = model.Description
+                    };
+                    _context.Add(service);
+                }
+                else
+                {
+                    var service = new Service
+                    {
+                        Id = Convert.ToInt64(model.Id),
+                        Name = model.Name,
+                        Price = Convert.ToDecimal(model.Price),
+                        ImageUrl = model.ImageUrl,
+                        Description = model.Description
+                    };
+                    _context.Update(service);
+                }
                 _context.SaveChanges();
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index", "Home");
             }    
             return Ok();
         }
