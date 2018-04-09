@@ -17,16 +17,17 @@ namespace HappyGift.Controllers
             base(context, userManager)
         { }
 
-        public async Task<IActionResult> Index(long serviceId)
+        [HttpGet]
+        public IActionResult Index(long serviceId)
         {
             CreateServiceViewModel model = new CreateServiceViewModel();
             if(serviceId == 0)
             {
-                model.Id = 0;
+                model.Id = "0";
             }
             else // init edit form
             {
-                model.Id = serviceId;
+                model.Id = serviceId.ToString();
 
                 var service = _context.Services.Where(c => c.Id == serviceId).FirstOrDefault();
                 
@@ -51,26 +52,31 @@ namespace HappyGift.Controllers
         {    
             if (ModelState.IsValid)
             {
-                var service = new Service {
-                    Id = model.Id,
-                    Name = model.Name,
-                    Price = Convert.ToDecimal(model.Price),
-                    ImageUrl = model.ImageUrl,
-                    Description = model.Description
-                };
-                if (model.Id == 0)
+                if (model.Id == "0")
                 {
-                    // redirect just for testing
-                    return RedirectToAction("Index", "Home");
-                    //_context.Add(service);
+                    var service = new Service
+                    {
+                        Name = model.Name,
+                        Price = Convert.ToDecimal(model.Price),
+                        ImageUrl = model.ImageUrl,
+                        Description = model.Description
+                    };
+                    _context.Add(service);
                 }
                 else
                 {
-                    // redirect just for testing
-                    return RedirectToAction("Index", "Cart");
-                    //_context.Update(service);
+                    var service = new Service
+                    {
+                        Id = Convert.ToInt64(model.Id),
+                        Name = model.Name,
+                        Price = Convert.ToDecimal(model.Price),
+                        ImageUrl = model.ImageUrl,
+                        Description = model.Description
+                    };
+                    _context.Update(service);
                 }
-                //_context.SaveChanges();
+                _context.SaveChanges();
+                return RedirectToAction("Index", "Home");
             }    
             return Ok();
         }
