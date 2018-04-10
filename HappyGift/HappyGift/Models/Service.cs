@@ -23,6 +23,8 @@ namespace HappyGift.Models
         
         public string Description { get; set; }
 
+        //in minutes
+        public int Duration { get; set; }
         public virtual ICollection<GiftServices> GiftServices { get; set; }
         public virtual ICollection<CartServices> CartServices { get; set; }
     }

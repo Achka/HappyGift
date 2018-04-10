@@ -31,6 +31,10 @@ namespace HappyGift.Models.ServiceViewModels
         [DataType(DataType.Text)]
         [Display(Name = "Description")]
         public string Description { get; set; }
+
+        [Required]
+        [Display(Name = "Duration (in minutes)")]
+        public int Duration { get; set; }
         
     }
 }

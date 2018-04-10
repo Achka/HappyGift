@@ -35,6 +35,7 @@ namespace HappyGift.Controllers
                 model.Price = service.Price.ToString();
                 model.ImageUrl = service.ImageUrl;
                 model.Description = service.Description;
+                model.Duration = service.Duration;
             }
 
             return View(model);
@@ -59,7 +60,8 @@ namespace HappyGift.Controllers
                         Name = model.Name,
                         Price = Convert.ToDecimal(model.Price),
                         ImageUrl = model.ImageUrl,
-                        Description = model.Description
+                        Description = model.Description,
+                        Duration = model.Duration
                     };
                     _context.Add(service);
                 }
@@ -71,7 +73,8 @@ namespace HappyGift.Controllers
                         Name = model.Name,
                         Price = Convert.ToDecimal(model.Price),
                         ImageUrl = model.ImageUrl,
-                        Description = model.Description
+                        Description = model.Description,
+                        Duration = model.Duration
                     };
                     _context.Update(service);
                 }
