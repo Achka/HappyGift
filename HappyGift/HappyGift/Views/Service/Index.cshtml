@@ -12,6 +12,7 @@
 <div class="login-container">
     <form asp-action="CreateService" style="width: 50%; margin: 0 auto;">
         <div asp-validation-summary="ModelOnly" class="input-container"></div>
+            @Html.HiddenFor(m => m.Id)
 
         <div class="form-group" style="display:none">
             <label asp-for="Id" class="control-label"></label>
