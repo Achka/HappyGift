@@ -6,9 +6,14 @@
     <title>@ViewData["Title"] - HappyGift</title>
 
     <environment include="Development">
+        <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
         <link rel="stylesheet" href="~/css/services.css" />
+        <link rel="stylesheet" href="~/css/layout.css" />
+        <link rel="stylesheet" href="~/css/login.css" />
+
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -17,37 +22,37 @@
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
 </head>
-<body style="background-color:#fbe5ff">
-    <nav class="navbar navbar-inverse navbar-fixed-top" style="background-color:#49394c">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+<body>
+    <nav class="w3-top">
+        <div class="w3-bar w3-white w3-card" id="myNavbar">
+            <a asp-area="" asp-controller="Home" asp-action="Index" 
+                   class="w3-bar-item w3-button w3-wide" style="font-size:20px">HappyGift</a>
+            <div class="w3-left">
+                @*<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">HappyGift</a>
+                </button>*@
                 @if (User.Identity.IsAuthenticated)
                 {
                     @if (User.IsInRole("Admin"))
                     {
-                        <a asp-area="" asp-controller="Service" asp-action="Index"  asp-route-serviceId="0" class="navbar-brand">Add service</a>
-                        <a asp-area="" asp-controller="Gift" asp-action="NotApprovedGifts" class="navbar-brand">Approve gifts</a>
+                        <a asp-area="" asp-controller="Service" asp-action="Index"  asp-route-serviceId="0" class="w3-bar-item w3-button">Add service</a>
+                        <a asp-area="" asp-controller="Gift" asp-action="NotApprovedGifts" class="w3-bar-item w3-button">Approve gifts</a>
                     }
                     
-                    <a asp-area="" asp-controller="Gift" asp-action="Index" class="navbar-brand">Gifts history</a>
-                    <a asp-area="" asp-controller="Cart" asp-action="Index" class="navbar-brand"><span class="glyphicon glyphicon-shopping-cart"></span> <span id="cartItems"class="badge"></span></a>
+                    <a asp-area="" asp-controller="Gift" asp-action="Index" class="w3-bar-item w3-button">Gifts history</a>
+                    <a asp-area="" asp-controller="Cart" asp-action="Index" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-shopping-cart"></span> <span id="cartItems"class="badge"></span></a>
                     
                 }
-
             </div>
-            <div class="navbar-collapse collapse">
+            <div class="w3-right">
                 @await Html.PartialAsync("_LoginPartial")
             </div>
         </div>
     </nav>
-    <div class="container body-content">
+    <div class="container body-content" style="margin-top:20px">
         @RenderBody()
         <hr />
         <footer>

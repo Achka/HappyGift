@@ -8,18 +8,22 @@
     {
         <a asp-controller="Gift" asp-action="CreateGift" class="btn btn-success">Create Gift</a>
         <div>Total Price: @Model.TotalPrice USD</div>
-        <ul class="list-group">
-            @foreach (var item in Model.CartItems)
-            {
-                <li class="list-group-item">
-                    <img src="@item.ServiceImageURL" alt="Service Image" />
-                    <h5>@item.ServiceName</h5>
-                    <div>@item.ServiceDescription</div>
-                    <div>Price: @item.ServicePrice USD</div>
-                    <a asp-controller="Cart" asp-action="RemoveFromCart" asp-route-cartServiceId="@item.ServiceId" class="btn btn-info">Remove From Cart</a>
-                </li>
-            }
-        </ul>
+
+        <div class="services">
+        @foreach (var item in Model.CartItems)
+        {
+            <div class="card service">
+                <img class="card-img-top" src="@item.ServiceImageURL" />
+                <div class="card-body">
+                    <h4 class="card-title">@item.ServiceName</h4>
+                    <p class="card-text">@item.ServiceDescription</p>
+                    <p class="card-text">Price: @item.ServicePrice USD</p>
+                </div>
+                <a asp-controller="Cart" asp-action="RemoveFromCart"
+                   asp-route-cartServiceId="@item.ServiceId" class="btn btn-remove-card">Remove From Cart</a>
+            </div>
+        }
+        </div>
     }
     else
     {

@@ -1,0 +1,25 @@
+﻿body {
+    font-family: font-family: "Raleway", sans-serif;
+    font-size: 20px;
+}
+
+body, html {
+    height: 100%;
+    line-height: 1.8;
+}
+
+.w3-bar .w3-button {
+    padding: 18px;
+}
+
+.w3-bar .w3-button:hover {
+    text-decoration:none;
+}
+
+.w3-left {
+    height: 100%;
+}
+
+#myNavbar {
+    height: 70px;
+}

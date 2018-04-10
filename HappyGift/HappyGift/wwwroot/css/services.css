@@ -23,6 +23,10 @@
     transform: scale(1.1, 1.1);
 }
 
+.service:hover .card-body .card-img-top {
+    transform: scale(1.1, 1.1);
+}
+
 .service .card-body .card-title {
     font-size: 4vh;
     text-align: center;
@@ -32,4 +36,44 @@
 .card-img-top {
     margin: 0 auto;
     max-width: 100%;
+}
+
+.btn-add-card {
+    float: left;
+    margin:0 auto;
+    border-radius: 50px;
+    background-color: #5dd27a;
+    padding: 8px 30px;
+    color: white;
+}
+
+.btn-edit-card {
+    float: right;
+    border-radius: 50px;
+    background-color: #f7bd53;
+    padding: 8px 30px;
+    color: white;
+}
+
+.btn-add-card:hover {
+    background-color: #37a352;
+    color: white;
+}
+
+.btn-edit-card:hover {
+    background-color: #ce9b3d;
+    color: white;
+}
+
+.btn-remove-card {
+    color: white;
+    background-color: #ff8763;
+    margin: 0 auto;
+    border-radius: 40px;
+    width: 50%;
+}
+
+.btn-remove-card:hover {
+    color:white;
+    background-color: #e26038;
 }
