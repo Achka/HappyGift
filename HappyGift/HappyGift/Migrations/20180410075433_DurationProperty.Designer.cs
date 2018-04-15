@@ -12,13 +12,14 @@ using System;
 namespace HappyGift.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180410075433_DurationProperty")]
+    partial class DurationProperty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
+                .HasAnnotation("ProductVersion", "2.0.0-rtm-26452")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("HappyGift.Models.Cart", b =>
@@ -97,8 +98,6 @@ namespace HappyGift.Migrations
                     b.Property<int>("Duration");
 
                     b.Property<string>("ImageUrl");
-
-                    b.Property<bool>("IsDeleted");
 
                     b.Property<string>("Name");
 
