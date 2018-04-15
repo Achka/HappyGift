@@ -46,6 +46,19 @@ namespace HappyGift.Controllers
             return View();
         }
 
+        
+        public IActionResult DeleteService(long serviceId)
+        {
+            var service = _context.Services.Where(c => c.Id == serviceId).FirstOrDefault();
+            
+            service.IsDeleted = true;
+
+            _context.Update(service);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Home");
+            
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult CreateService(CreateServiceViewModel model)
