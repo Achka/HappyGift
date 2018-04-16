@@ -1,15 +1,12 @@
-﻿using HappyGift.Controllers;
-using HappyGift.Data;
+﻿using HappyGift.Data;
 using HappyGift.Managers;
-using HappyGift.Models;
-using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using System.Linq;
 
 namespace HappyGift.Tests
 {
     [TestFixture]
-    public class CartManagerTests
+    public class CartManagerTests : BaseTests
     {
         public CartManagerTests()
         {
@@ -135,56 +132,14 @@ namespace HappyGift.Tests
                 //Assert
                 cartWithService = cartManager.GetCartByUserId(userId);
 
-                Assert.AreEqual(cartWithService.CartServices.Count(), 1);
-                Assert.IsTrue(cartWithService.CartServices.Any(s => s.ServiceId == remainingServiceId));
-                Assert.IsFalse(cartWithService.CartServices.Any(s => s.ServiceId == serviceToRemoveId));
+                Assert.AreEqual(cartWithService.CartServices.Count, 1);
+                Assert.IsTrue(cartWithService.CartServices.Any(service => service.ServiceId == remainingServiceId));
+                Assert.IsFalse(cartWithService.CartServices.Any(service => service.ServiceId == serviceToRemoveId));
 
                 context.Database.EnsureDeleted();
             }
         }
 
-        private DbContextOptions<ApplicationDbContext> GetContextOptions()
-        {
-            return new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "HappyGiftDb")
-                .Options;
-        }
-
-        private void AddFakeServices(ApplicationDbContext context)
-        {
-            context.Services.Add(new Service
-            {
-                Name = "ServiceName1"
-            });
-
-            context.Services.Add(new Service
-            {
-                Name = "ServiceName2"
-            });
-
-            context.Services.Add(new Service
-            {
-                Name = "ServiceName3"
-            });
-
-            context.SaveChanges();
-        }
-
-        private string CreateFakeUser(ApplicationDbContext context)
-        {
-            var user = context.Users.Add(new HappyGiftUser
-            {
-                Id = "0cd950bf-5fc5-4d34-90fc-b695342b2ace",
-                UserName = "Mary",
-                AccessFailedCount = 0,
-                EmailConfirmed = true,
-                LockoutEnabled = false,
-                PhoneNumberConfirmed = true,
-                TwoFactorEnabled = false
-            });
-            context.SaveChanges();
-
-            return user.Entity.Id;
-        }
+       
     }
 }

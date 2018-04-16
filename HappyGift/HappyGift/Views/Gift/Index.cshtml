@@ -17,7 +17,9 @@
         <li class="list-group-item">
             @if (gift.IsAcceptedByAdmin)
             {
-                <div class="alert alert-success">Your gift has been approved. Please check your email for futher information.</div>
+                <div class="alert alert-success">Your gift has been approved. Please check your email for futher information.
+                    <div>Your gift will expire on @gift.ExpirationDate.ToString("MMM dd, yyyy", new CultureInfo("en-US"))</div>
+                    </div>
             }
             else
             {

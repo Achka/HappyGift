@@ -66,5 +66,11 @@ namespace HappyGift.Managers
             gift.ExpirationDate = DateTime.Now.AddMonths(6);
             _context.SaveChanges();
         }
+
+        public void Dispose()
+        {
+           _context.Dispose();
+            _cartManager.Dispose();
+        }
     }
 }

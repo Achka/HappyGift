@@ -8,6 +8,10 @@ namespace HappyGift.Mappers
     {
         public static CartListViewModel ToCartListViewModel(this Cart cart)
         {
+            if (cart == null)
+            {
+                return new CartListViewModel();
+            }
             return new CartListViewModel
             {
                 CartId = cart.CartId,

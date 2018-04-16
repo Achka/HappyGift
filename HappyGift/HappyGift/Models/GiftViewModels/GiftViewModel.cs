@@ -12,5 +12,6 @@ namespace HappyGift.Models.GiftViewModels
         public bool IsAcceptedByAdmin { get; set; }
         public DateTime CreatedDate { get; set; }
         public List<ServiceBaseViewModel> Services { get; set; }
+        public DateTime ExpirationDate { get; internal set; }
     }
 }

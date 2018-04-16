@@ -54,7 +54,7 @@ namespace HappyGift.Managers
                     {
                         RemoveFromCart(service.CartServiceId, userId);
                     }
-                }               
+                }
             }
 
             return cart;
@@ -70,6 +70,11 @@ namespace HappyGift.Managers
             var dbEntity = _contex.Entry(toDelete);
             dbEntity.State = EntityState.Deleted;
             _contex.SaveChanges();
+        }
+
+        public void Dispose()
+        {
+            _contex.Dispose();
         }
     }
 }

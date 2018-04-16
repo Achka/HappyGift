@@ -1,8 +1,9 @@
-﻿using HappyGift.Models;
+﻿using System;
+using HappyGift.Models;
 
 namespace HappyGift.Managers.Interfaces
 {
-    public interface ICartManager 
+    public interface ICartManager :IDisposable
     {
         Cart CreateNewCart(string userId);
         bool AddServiceToCart(int serviceId, int cartId);
