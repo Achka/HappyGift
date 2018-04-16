@@ -41,15 +41,31 @@ namespace HappyGift.Managers
 
         public Cart GetCartByUserId(string userId)
         {
-            return _contex.Carts.Where(c => c.UserId == userId)
+            var cart = _contex.Carts.Where(c => c.UserId == userId)
                 .Include(c=> c.CartServices)
                 .ThenInclude(cs => cs.Service)
                 .FirstOrDefault();
+
+            if (cart != null)
+            {
+                foreach (var service in cart.CartServices)
+                {
+                    if (service?.Service.IsDeleted == true)
+                    {
+                        RemoveFromCart(service.CartServiceId, userId);
+                    }
+                }               
+            }
+
+            return cart;
         }
 
         public void RemoveFromCart(int cartServiceId, string userId)
         {
-            var cart = GetCartByUserId(userId);
+            var cart = _contex.Carts.Where(c => c.UserId == userId)
+                .Include(c => c.CartServices)
+                .ThenInclude(cs => cs.Service)
+                .FirstOrDefault();
             var toDelete = cart.CartServices.Where(cs => cs.CartServiceId == cartServiceId).FirstOrDefault();
             var dbEntity = _contex.Entry(toDelete);
             dbEntity.State = EntityState.Deleted;

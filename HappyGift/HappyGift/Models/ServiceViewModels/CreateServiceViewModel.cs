@@ -12,7 +12,7 @@ namespace HappyGift.Models.ServiceViewModels
         [HiddenInput(DisplayValue = false)]
         [DataType(DataType.Text)]
         public string Id {get; set;}
-
+       
         [Required]
         [DataType(DataType.Text)]
         [Display(Name = "Service Name")]

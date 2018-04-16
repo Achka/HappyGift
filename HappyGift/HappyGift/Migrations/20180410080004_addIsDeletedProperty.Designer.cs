@@ -12,9 +12,10 @@ using System;
 namespace HappyGift.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180410080004_addIsDeletedProperty")]
+    partial class addIsDeletedProperty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,8 +59,6 @@ namespace HappyGift.Migrations
 
                     b.Property<DateTime>("CreatedDate");
 
-                    b.Property<DateTime>("ExpirationDate");
-
                     b.Property<bool>("IsAcceptedByAdmin");
 
                     b.Property<string>("UserId");
@@ -95,8 +94,6 @@ namespace HappyGift.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Description");
-
-                    b.Property<int>("Duration");
 
                     b.Property<string>("ImageUrl");
 
