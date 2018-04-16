@@ -30,7 +30,6 @@ namespace HappyGift.Controllers
         {
             var currentUser = await GetCurrentUser();
 
-
             var model = _giftManager.GetGiftsByUser(currentUser.Id)
                                               .Select(g => g.ToGiftViewModel())
                                               .ToList();

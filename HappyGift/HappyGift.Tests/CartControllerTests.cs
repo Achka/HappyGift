@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 using Castle.Core.Internal;
 using HappyGift.Controllers;
@@ -11,15 +8,9 @@ using HappyGift.Managers;
 using HappyGift.Managers.Interfaces;
 using HappyGift.Models;
 using HappyGift.Models.CartViewModels;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
-using Moq;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Http;
-
 namespace HappyGift.Tests
 {
     [TestFixture]

@@ -47,17 +47,16 @@ namespace HappyGift.Controllers
             return View();
         }
 
-        
+        [HttpGet]
         public IActionResult DeleteService(long serviceId)
         {
-            var service = _context.Services.Where(c => c.Id == serviceId).FirstOrDefault();
+            var service = _context.Services.FirstOrDefault(c => c.Id == serviceId);
             
             service.IsDeleted = true;
 
             _context.Update(service);
             _context.SaveChanges();
-            return RedirectToAction("Index", "Home");
-            
+            return RedirectToAction("Index", "Home");            
         }
 
         [HttpPost]

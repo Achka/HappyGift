@@ -46,17 +46,6 @@ namespace HappyGift.Managers
                 .ThenInclude(cs => cs.Service)
                 .FirstOrDefault();
 
-            if (cart != null)
-            {
-                foreach (var service in cart.CartServices)
-                {
-                    if (service?.Service.IsDeleted == true)
-                    {
-                        RemoveFromCart(service.CartServiceId, userId);
-                    }
-                }
-            }
-
             return cart;
         }
 
