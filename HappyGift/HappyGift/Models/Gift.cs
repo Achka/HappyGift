@@ -19,6 +19,8 @@ namespace HappyGift.Models
 
         public DateTime CreatedDate { get; set; }
 
+        public DateTime ExpirationDate { get; set; }
+
         public virtual HappyGiftUser User { get; set; }
 
         public virtual ICollection<GiftServices> GiftServices { get;set; }

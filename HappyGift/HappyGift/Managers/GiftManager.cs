@@ -61,7 +61,9 @@ namespace HappyGift.Managers
 
         public void ApproveGift(long giftId)
         {
-            _context.Gifts.FirstOrDefault(g => g.Id == giftId).IsAcceptedByAdmin = true;
+            var gift =_context.Gifts.FirstOrDefault(g => g.Id == giftId);
+            gift.IsAcceptedByAdmin = true;
+            gift.ExpirationDate = DateTime.Now.AddMonths(6);
             _context.SaveChanges();
         }
     }
