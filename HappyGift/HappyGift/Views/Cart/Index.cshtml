@@ -6,8 +6,8 @@
     <h2>My Cart</h2>
     @if (Model.CartItems.Any())
     {
-        <a asp-controller="Gift" asp-action="CreateGift" class="btn btn-success">Create Gift</a>
-        <div>Total Price: @Model.TotalPrice USD</div>
+        <a asp-controller="Gift" asp-action="CreateGift" class="btn btn-success" style="display: block; margin: auto; width: 10%; margin-top: 20px;">Create Gift</a>
+        <div style="text-align: center">Total Price: @Model.TotalPrice USD</div>
 
         <div class="services">
         @foreach (var item in Model.CartItems)

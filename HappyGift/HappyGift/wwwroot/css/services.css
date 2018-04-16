@@ -39,7 +39,6 @@
 }
 
 .btn-add-card {
-    float: left;
     margin:0 auto;
     border-radius: 50px;
     background-color: #5dd27a;
@@ -48,7 +47,6 @@
 }
 
 .btn-edit-card {
-    float: right;
     border-radius: 50px;
     background-color: #f7bd53;
     padding: 8px 30px;

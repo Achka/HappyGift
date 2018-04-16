@@ -16,15 +16,17 @@
                     <p class="card-text">Duration: @service.Duration mins</p>
                     @if (User.Identity.IsAuthenticated)
                     {
-                    <a asp-controller="Cart" asp-action="AddToCart" asp-route-serviceId="@service.Id" class="btn btn-add-card">Add To Cart</a>
-                    @if (User.IsInRole("Admin"))
-                    {
-                    <a class="btn btn-edit-card" asp-area="" asp-controller="Service"
-                       asp-action="Index" asp-route-serviceId="@service.Id">Edit Service</a>
+                        <div>
+                            <a asp-controller="Cart" asp-action="AddToCart" asp-route-serviceId="@service.Id" class="btn btn-add-card">Add To Cart</a>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a class="btn btn-edit-card" asp-area="" asp-controller="Service"
+                                   asp-action="Index" asp-route-serviceId="@service.Id">Edit</a>
 
-                    <a class="btn btn-edit-card" asp-area="" asp-controller="Service"
-                       asp-action="DeleteService" asp-route-serviceId="@service.Id">Delete Service</a>
-                    }
+                                <a class="btn btn-edit-card" asp-area="" asp-controller="Service"
+                                   asp-action="DeleteService" asp-route-serviceId="@service.Id">Delete</a>
+                            }
+                        </div>
                     }
                 </div>
             </div>

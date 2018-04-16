@@ -1,19 +1,23 @@
 ﻿@using System.Globalization
+<h2>Approve gifts</h2>
 @model List<HappyGift.Models.GiftViewModels.GiftViewModel>
+<ul class="list-group">
+    @foreach (var gift in Model)
+    {
+        <li class="list-group-item">
+            <div>User @gift.UserEmail ordered: </div>
+            <div>Total Price: @gift.TotalPrice USD</div>
+            <div>Requested Date: @gift.CreatedDate.ToString("MMM dd yyyy hh:mm tt", new CultureInfo("en-US"))</div>
+            <ul>
+                @foreach (var service in gift.Services)
+                {
+                    <li> @service.ServiceName </li>
+                }
+            </ul>
 
-@foreach (var gift in Model)
-{
-    <h4>User @gift.UserEmail ordered: </h4>
-    <div>Total Price: @gift.TotalPrice USD</div>
-    <h5>Requested Date: @gift.CreatedDate.ToString("MMM dd yyyy hh:mm tt", new CultureInfo("en-US"))</h5>
-    <ul>
-        @foreach (var service in gift.Services)
-        {
-            <li> @service.ServiceName </li>
-        }
-    </ul>
-
-    <p class="button">
-        <a asp-controller="Gift" asp-action="Approve" asp-route-giftId="@gift.GiftId" class="btn btn-success">Approve</a>
-    </p>
-}
+            <p class="button">
+                <a asp-controller="Gift" asp-action="Approve" asp-route-giftId="@gift.GiftId" class="btn btn-success">Approve</a>
+            </p>
+        </li>
+    }
+</ul>
