@@ -9,6 +9,7 @@ using Castle.Core.Internal;
 using HappyGift.Controllers;
 using HappyGift.Models;
 using HappyGift.Models.CartViewModels;
+using HappyGift.Models.HomeViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
@@ -37,11 +38,12 @@ namespace HappyGift.Tests
             var result = _controller.Index();
             Assert.IsInstanceOf<ViewResult>(result);
             var viewResult = result as ViewResult;
-            ViewDataDictionary viewData = viewResult?.ViewData;
 
-            Assert.IsNotNull(viewData?["Services"]);
-            Assert.IsInstanceOf<List<Service>>(viewData["Services"]);
-            Assert.AreEqual(((List<Service>) viewData["Services"]).Count, 3);
+            var model = viewResult?.Model as List<HomeViewModel>;
+
+            Assert.IsNotNull(model);
+            Assert.AreEqual(model.Count, 1);
+            Assert.AreEqual(model.First().Services.Count, 3);
             _context.Database.EnsureDeleted();
         }
 
