@@ -28,7 +28,7 @@
 }
 
 .service .card-body .card-title {
-    font-size: 4vh;
+    font-size: 3vh;
     text-align: center;
     margin: 3vh 0;
 }
@@ -74,4 +74,10 @@
 .btn-remove-card:hover {
     color:white;
     background-color: #e26038;
+}
+
+.category-name {
+    margin-top: 7px;
+    font-size: 3.75vh;
+    text-align: center;
 }

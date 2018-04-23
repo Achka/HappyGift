@@ -19,6 +19,11 @@ namespace HappyGift.Models.ServiceViewModels
         public string Name { get; set; }
 
         [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Category")]
+        public string Category { get; set; }
+
+        [Required]
         [DataType(DataType.Currency)]
         [Display(Name = "Price")]
         public string Price { get; set; }

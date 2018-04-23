@@ -17,6 +17,8 @@ namespace HappyGift.Models
 
         public bool IsDeleted { get; set; }
 
+        public string Category { get; set; }
+
         public string Name { get; set; }
 
         public string ImageUrl { get; set; }

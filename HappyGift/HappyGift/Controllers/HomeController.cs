@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using HappyGift.Models;
 using HappyGift.Data;
+using HappyGift.Models.HomeViewModels;
 using Microsoft.AspNetCore.Identity;
 
 namespace HappyGift.Controllers
@@ -48,8 +49,12 @@ namespace HappyGift.Controllers
             //};
             //_context.Add(s2);
             //_context.SaveChanges();
-            ViewData["Services"] = _context.Services.ToList();
-            return View();
+            var model = _context.Services.GroupBy(s=> s.Category).Select(s=> new HomeViewModel
+            {
+                Category = s.Key,
+                Services = s.ToList()
+            }).ToList();
+            return View(model);
         }
     }
 }
