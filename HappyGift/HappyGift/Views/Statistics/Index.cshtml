@@ -1,0 +1,10 @@
+﻿@using HappyGift.Models.StatisticsViewModels
+@model BaseStatisticsViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Base Statistics</h2>
+<div><b>Most Popular Service: </b>@Model.MostPopularService</div>
+<div><b>Least Popular Service: </b>@Model.LeastPopularService</div>
+<div><b>Total sum earned: </b>@Model.TotalSum</div>
