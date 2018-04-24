@@ -4,40 +4,156 @@
     ViewData["Title"] = "Home Page";
 }
 @model List<HappyGift.Models.HomeViewModels.HomeViewModel>
-@foreach (var categoryServices in Model)
-{
-    <div class="category-name">@categoryServices.Category</div>
-    <div class="services">
-        @foreach (var service in categoryServices.Services)
-        {
-            @if (service.IsDeleted == false)
-            {
-                <div class="card service">
-                    <img class="card-img-top" src="@service.ImageUrl" />
-                    <div class="card-body">
-                        <h4 class="card-title">@service.Name</h4>
-                        <p class="card-text">@service.Description</p>
-                        <p class="card-text">Price: @service.Price USD</p>
-                        <p class="card-text">Duration: @service.Duration mins</p>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <div>
-                                <a asp-controller="Cart" asp-action="AddToCart" asp-route-serviceId="@service.Id" class="btn btn-add-card">Add To Cart</a>
-                                @if (User.IsInRole("Admin"))
-                                {
-                                    <a class="btn btn-edit-card" asp-area="" asp-controller="Service"
-                                       asp-action="Index" asp-route-serviceId="@service.Id">Edit</a>
 
-                                    <a class="btn btn-edit-card" asp-area="" asp-controller="Service"
-                                       asp-action="DeleteService" asp-route-serviceId="@service.Id">Delete</a>
-                                }
-                            </div>
-                        }
-                    </div>
-                </div>
 
-            }
-        }
+<div class="services-wrapper">
+    <div class="fallingLeaves">
+        <span>
+            <img src="http://www.iconarchive.com/download/i54478/miniartx/gifts-2/gift-box.ico" />
+        </span>
+        <span>
+            <img src="http://www.pngmart.com/files/4/Present-Transparent-PNG.png" />
+        </span>
+        <span>
+            <img src="http://www.pngmart.com/files/4/Present-PNG-Photo.png" />
+        </span>
+        <span>
+            <img src="http://www.iconarchive.com/download/i54478/miniartx/gifts-2/gift-box.ico" />
+        </span>
+        <span>
+            <img src="http://www.pngmart.com/files/4/Present-Transparent-PNG.png" />
+        </span>
+        <span>
+            <img src="http://www.pngmart.com/files/4/Present-PNG-Photo.png" />
+        </span>
+        <span>
+            <img src="http://www.iconarchive.com/download/i54478/miniartx/gifts-2/gift-box.ico" />
+        </span>
+        <span>
+            <img src="http://www.pngmart.com/files/4/Present-Transparent-PNG.png" />
+        </span>
+        <span>
+            <img src="http://www.pngmart.com/files/4/Present-PNG-Photo.png" />
+        </span>
+        <span>
+            <img src="http://www.iconarchive.com/download/i54478/miniartx/gifts-2/gift-box.ico" />
+        </span>
+        <span>
+            <img src="http://www.pngmart.com/files/4/Present-Transparent-PNG.png" />
+        </span>
+        <span>
+            <img src="http://www.pngmart.com/files/4/Present-PNG-Photo.png" />
+        </span>
+        <span>
+            <img src="http://www.iconarchive.com/download/i54478/miniartx/gifts-2/gift-box.ico" />
+        </span>
+        <span>
+            <img src="http://www.pngmart.com/files/4/Present-Transparent-PNG.png" />
+        </span>
+        <span>
+            <img src="http://www.pngmart.com/files/4/Present-PNG-Photo.png" />
+        </span>
+        <span>
+            <img src="http://www.iconarchive.com/download/i54478/miniartx/gifts-2/gift-box.ico" />
+        </span>
+        <span>
+            <img src="http://www.pngmart.com/files/4/Present-Transparent-PNG.png" />
+        </span>
+        <span>
+            <img src="http://www.pngmart.com/files/4/Present-PNG-Photo.png" />
+        </span>
     </div>
-}
+    @foreach (var categoryServices in Model)
+    {
+        <div class="category-name">@categoryServices.Category</div>
+        <div class="services">
+            @foreach (var service in categoryServices.Services)
+            {
+                @if (service.IsDeleted == false)
+                {
+                    <div class="card service">
+                        <img class="card-img-top" src="@service.ImageUrl" />
+                        <div class="card-body">
+                            <h4 class="card-title">@service.Name</h4>
+                            <p class="card-text">@service.Description</p>
+                            <p class="card-text">Price: @service.Price USD</p>
+                            <p class="card-text">Duration: @service.Duration mins</p>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div class="button-container">
+                                    <a asp-controller="Cart" asp-action="AddToCart" asp-route-serviceId="@service.Id" class="btn btn-add-card">Add To Cart</a>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <a class="btn btn-edit-card" asp-area="" asp-controller="Service"
+                                           asp-action="Index" asp-route-serviceId="@service.Id">Edit</a>
+
+                                        <a class="btn btn-remove-card" asp-area="" asp-controller="Service"
+                                           asp-action="DeleteService" asp-route-serviceId="@service.Id">Delete</a>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                }
+            }
+        </div>
+    }
+    <div class="fallingLeaves right">
+        <span>
+            <img src="http://www.iconarchive.com/download/i54478/miniartx/gifts-2/gift-box.ico" />
+        </span>
+        <span>
+            <img src="http://www.pngmart.com/files/4/Present-Transparent-PNG.png" />
+        </span>
+        <span>
+            <img src="http://www.pngmart.com/files/4/Present-PNG-Photo.png" />
+        </span>
+        <span>
+            <img src="http://www.iconarchive.com/download/i54478/miniartx/gifts-2/gift-box.ico" />
+        </span>
+        <span>
+            <img src="http://www.pngmart.com/files/4/Present-Transparent-PNG.png" />
+        </span>
+        <span>
+            <img src="http://www.pngmart.com/files/4/Present-PNG-Photo.png" />
+        </span>
+        <span>
+            <img src="http://www.iconarchive.com/download/i54478/miniartx/gifts-2/gift-box.ico" />
+        </span>
+        <span>
+            <img src="http://www.pngmart.com/files/4/Present-Transparent-PNG.png" />
+        </span>
+        <span>
+            <img src="http://www.pngmart.com/files/4/Present-PNG-Photo.png" />
+        </span>
+        <span>
+            <img src="http://www.iconarchive.com/download/i54478/miniartx/gifts-2/gift-box.ico" />
+        </span>
+        <span>
+            <img src="http://www.pngmart.com/files/4/Present-Transparent-PNG.png" />
+        </span>
+        <span>
+            <img src="http://www.pngmart.com/files/4/Present-PNG-Photo.png" />
+        </span>
+        <span>
+            <img src="http://www.iconarchive.com/download/i54478/miniartx/gifts-2/gift-box.ico" />
+        </span>
+        <span>
+            <img src="http://www.pngmart.com/files/4/Present-Transparent-PNG.png" />
+        </span>
+        <span>
+            <img src="http://www.pngmart.com/files/4/Present-PNG-Photo.png" />
+        </span>
+        <span>
+            <img src="http://www.iconarchive.com/download/i54478/miniartx/gifts-2/gift-box.ico" />
+        </span>
+        <span>
+            <img src="http://www.pngmart.com/files/4/Present-Transparent-PNG.png" />
+        </span>
+        <span>
+            <img src="http://www.pngmart.com/files/4/Present-PNG-Photo.png" />
+        </span>
+    </div>
+</div>
 
