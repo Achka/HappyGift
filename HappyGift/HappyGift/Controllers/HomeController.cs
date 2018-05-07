@@ -5,6 +5,7 @@ using HappyGift.Models;
 using HappyGift.Data;
 using HappyGift.Models.HomeViewModels;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace HappyGift.Controllers
 {
@@ -49,10 +50,11 @@ namespace HappyGift.Controllers
             //};
             //_context.Add(s2);
             //_context.SaveChanges();
-            var model = _context.Services.GroupBy(s=> s.Category).Select(s=> new HomeViewModel
+            var model = _context.Services.Include(s => s.Category).Where(s => !s.IsDeleted).ToList()
+                .GroupBy(ser => ser.Category).Select(service => new HomeViewModel
             {
-                Category = s.Key,
-                Services = s.ToList()
+                Category = service.Key?.Name ?? "Without category",
+                Services = service.ToList()
             }).ToList();
             return View(model);
         }

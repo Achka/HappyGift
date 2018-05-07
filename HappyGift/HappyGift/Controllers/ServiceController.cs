@@ -7,6 +7,7 @@ using System;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HappyGift.Controllers
 {
@@ -20,7 +21,7 @@ namespace HappyGift.Controllers
         [HttpGet]
         public IActionResult Index(long serviceId)
         {
-            CreateServiceViewModel model = new CreateServiceViewModel();
+            var model = new CreateServiceViewModel();
             if(serviceId == 0)
             {
                 model.Id = "0";
@@ -36,16 +37,55 @@ namespace HappyGift.Controllers
                 model.ImageUrl = service.ImageUrl;
                 model.Description = service.Description;
                 model.Duration = service.Duration;
-                model.Category = service.Category;
+                model.CategoryId = service.CategoryId.ToString();
             }
-
+            model.Categories = _context.Category.Select(c => new SelectListItem
+            {
+                Value = c.CategoryId.ToString(),
+                Text = c.Name
+            });
             return View(model);
         }
-        
         [HttpGet]
-        public IActionResult CreateService(int? id)
+        public IActionResult CreateCategory(int? categoryId)
         {
-            return View();
+            var model = new CreateCategoryViewModel();
+            if (categoryId.HasValue)
+            {
+                var category = _context.Category.FirstOrDefault(c => c.CategoryId == categoryId);
+                model.Name = category.Name;
+                model.Id = category.CategoryId;
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateCategory(CreateCategoryViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (model.Id == 0)
+                {
+                    var category = new Category
+                    {
+                        Name = model.Name,
+                    };
+                    _context.Add(category);
+                }
+                else
+                {
+                    var category = new Category
+                    {
+                        CategoryId = model.Id,
+                        Name = model.Name,
+                    };
+                    _context.Update(category);
+                }
+                _context.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
+            return Ok();
         }
 
         [HttpGet]
@@ -74,7 +114,7 @@ namespace HappyGift.Controllers
                         Price = Convert.ToDecimal(model.Price),
                         ImageUrl = model.ImageUrl,
                         Description = model.Description,
-                        Category = model.Category,
+                        CategoryId = Convert.ToInt32(model.CategoryId),
                         Duration = model.Duration
                     };
                     _context.Add(service);
@@ -87,7 +127,7 @@ namespace HappyGift.Controllers
                         Name = model.Name,
                         Price = Convert.ToDecimal(model.Price),
                         ImageUrl = model.ImageUrl,
-                        Category = model.Category,
+                        CategoryId = Convert.ToInt32(model.CategoryId),
                         Description = model.Description,
                         Duration = model.Duration
                     };

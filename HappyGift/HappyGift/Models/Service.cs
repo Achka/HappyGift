@@ -17,7 +17,7 @@ namespace HappyGift.Models
 
         public bool IsDeleted { get; set; }
 
-        public string Category { get; set; }
+        public int? CategoryId { get; set; }
 
         public string Name { get; set; }
 
@@ -31,5 +31,6 @@ namespace HappyGift.Models
         public int Duration { get; set; }
         public virtual ICollection<GiftServices> GiftServices { get; set; }
         public virtual ICollection<CartServices> CartServices { get; set; }
+        public virtual Category Category { get; set; }
     }
 }

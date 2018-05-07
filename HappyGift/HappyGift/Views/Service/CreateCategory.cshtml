@@ -1,0 +1,45 @@
+﻿@model HappyGift.Models.ServiceViewModels.CreateCategoryViewModel
+@{
+    ViewData["Title"] = "Create Category";
+}
+<h2>Category Info</h2>
+
+<hr />
+<div class="login-container">
+    <form asp-action="CreateCategory" style="width: 50%; margin: 0 auto;">
+        <div asp-validation-summary="ModelOnly" class="input-container"></div>
+        @Html.HiddenFor(m => m.Id)
+
+        <div class="form-group">
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+
+        @if (Model.Id == 0)
+        {
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-add-card" style="float:left" asp-area="" asp-controller="Service"
+                       asp-action="CreateCategory" />
+            </div>
+        }
+        else
+        {
+            <div class="form-group">
+                <input type="submit" value="Edit" class="btn btn-edit-card" style="float:left" asp-area="" asp-controller="Service"
+                       asp-action="CreateCategory" />
+            </div>
+        }
+    </form>
+</div>
+
+
+<div style="text-align:center">
+    <a asp-controller="Home" asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HappyGift.Models.ServiceViewModels
 {
@@ -19,9 +20,10 @@ namespace HappyGift.Models.ServiceViewModels
         public string Name { get; set; }
 
         [Required]
-        [DataType(DataType.Text)]
         [Display(Name = "Category")]
-        public string Category { get; set; }
+        public string CategoryId { get; set; }
+        public IEnumerable<SelectListItem> Categories { get; set; }
+
 
         [Required]
         [DataType(DataType.Currency)]

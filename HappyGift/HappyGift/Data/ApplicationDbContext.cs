@@ -19,6 +19,7 @@ namespace HappyGift.Data
         public DbSet<Gift> Gifts { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Service> Services { get; set; }
+        public DbSet<Category> Category { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
