@@ -48,6 +48,14 @@ namespace HappyGift.Controllers
             return RedirectToAction("Index", "Cart");
         }
 
+        public async Task<IActionResult> SaveCity(string city, int cartId)
+        {
+            var cart = _context.Carts.FirstOrDefault(c => c.CartId == cartId);
+            cart.City = city;
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Cart");
+        }
+
         [HttpGet]
         public async Task<int> GetNumberOfItemsInCart()
         {

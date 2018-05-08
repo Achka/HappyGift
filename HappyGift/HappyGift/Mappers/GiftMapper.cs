@@ -13,6 +13,7 @@ namespace HappyGift.Mappers
                 GiftId = gift.Id,
                 CreatedDate = gift.CreatedDate,
                 UserEmail = gift.User.UserName,
+                City = gift.City,
                 IsAcceptedByAdmin = gift.IsAcceptedByAdmin,
                 Services = gift.GiftServices.Select(gs => gs.Service.ToServiceBaseViewModel()).ToList(),
                 TotalPrice = gift.GiftServices.Sum(gs => gs.Service.Price),
