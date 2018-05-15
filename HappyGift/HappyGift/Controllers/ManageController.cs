@@ -60,7 +60,8 @@ namespace HappyGift.Controllers
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 IsEmailConfirmed = user.EmailConfirmed,
-                StatusMessage = StatusMessage
+                StatusMessage = StatusMessage,
+                YearOfBirth = user.YearOfBirth.GetValueOrDefault(1900)
             };
 
             return View(model);
@@ -76,6 +77,7 @@ namespace HappyGift.Controllers
             }
 
             var user = await _userManager.GetUserAsync(User);
+            user.YearOfBirth = model.YearOfBirth;
             if (user == null)
             {
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
@@ -101,6 +103,7 @@ namespace HappyGift.Controllers
                 }
             }
 
+            await _userManager.UpdateAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToAction(nameof(Index));
         }

@@ -1,6 +1,7 @@
 ﻿using HappyGift.Models;
 using HappyGift.Models.ServiceViewModels;
 using System;
+using System.Linq;
 
 namespace HappyGift.Mappers
 {
@@ -29,7 +30,10 @@ namespace HappyGift.Mappers
                 ServiceId = cartServices.CartServiceId,
                 ServiceDescription = cartServices.Service.Description,
                 ServiceImageURL = cartServices.Service.ImageUrl,
-                ServicePrice = cartServices.Service.Price
+                ServicePrice = cartServices.Service.Price,
+                AvarageAgeOfCustomer = Convert.ToInt32(cartServices.Service.GiftServices.Average(gs => (double)(DateTime.Now.Year - gs.Gift.User.YearOfBirth.GetValueOrDefault(1900)))),
+                MinAgeOfUser = cartServices.Service.GiftServices.Min(gs => DateTime.Now.Year - gs.Gift.User.YearOfBirth.GetValueOrDefault(1900)),
+                MaxAgeOfUser = cartServices.Service.GiftServices.Max(gs => DateTime.Now.Year - gs.Gift.User.YearOfBirth.GetValueOrDefault(1900))
             };
         }
 

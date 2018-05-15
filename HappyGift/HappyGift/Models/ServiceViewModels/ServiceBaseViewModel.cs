@@ -7,5 +7,8 @@
         public string ServiceDescription { get; set; }
         public string ServiceImageURL { get; set; }
         public decimal ServicePrice { get; set; }
+        public double AvarageAgeOfCustomer { get; set; }
+        public int MinAgeOfUser { get; set; }
+        public int MaxAgeOfUser { get; set; }
     }
 }

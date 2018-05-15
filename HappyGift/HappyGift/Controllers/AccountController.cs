@@ -252,7 +252,7 @@ namespace HappyGift.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new HappyGiftUser { UserName = model.Email, Email = model.Email };
+                var user = new HappyGiftUser { UserName = model.Email, Email = model.Email, YearOfBirth = model.YearOfBirth};
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

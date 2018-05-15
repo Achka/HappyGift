@@ -19,6 +19,9 @@ namespace HappyGift.Models.ManageViewModels
         [Phone]
         [Display(Name = "Phone number")]
         public string PhoneNumber { get; set; }
+        [Required]
+        [Display(Name = "Year Of Birth")]
+        public int YearOfBirth { get; set; }
 
         public string StatusMessage { get; set; }
     }

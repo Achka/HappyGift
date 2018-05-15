@@ -42,8 +42,11 @@ namespace HappyGift.Managers
         public Cart GetCartByUserId(string userId)
         {
             var cart = _contex.Carts.Where(c => c.UserId == userId)
-                .Include(c=> c.CartServices)
+                .Include(c => c.CartServices)
                 .ThenInclude(cs => cs.Service)
+                .ThenInclude(s=>s.GiftServices)
+                .ThenInclude(gs=>gs.Gift)
+                .ThenInclude(g=>g.User)
                 .FirstOrDefault();
 
             return cart;

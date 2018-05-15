@@ -13,9 +13,13 @@
             
                 <label asp-for="Email"></label>
                 <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+            <span asp-validation-for="Email" class="text-danger"></span>
             
-                <label asp-for="Password"></label>
+            <label asp-for="YearOfBirth"></label>
+            <input asp-for="YearOfBirth" class="form-control" type="number" min="1900"/>
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            
+            <label asp-for="Password"></label>
                 <input asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             
