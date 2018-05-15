@@ -6,26 +6,27 @@
 <h2>@ViewData["Title"]</h2>
 
 <div class="login-container">
-        <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post" class="login-form">
-            
-            <hr />
-            <div asp-validation-summary="All" class="input-container"></div>
-            
-                <label asp-for="Email"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            
-                <label asp-for="Password"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            
-                <label asp-for="ConfirmPassword"></label>
-                <input asp-for="ConfirmPassword" class="form-control" />
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-            <div class="form-button">
-                <button type="submit" class="btn btn-default">Register</button>
-            </div>
-        </form>
+    <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post" class="login-form">
+
+        <hr />
+        <div asp-validation-summary="All" class="input-container"></div>
+
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+
+        <label asp-for="Password"></label>
+        <input asp-for="Password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+
+        <label asp-for="ConfirmPassword"></label>
+        <input asp-for="ConfirmPassword" class="form-control" />
+        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+
+        <div class="form-button">
+            <button type="submit" class="btn btn-default">Register</button>
+        </div>
+    </form>
 </div>
 
 @section Scripts {

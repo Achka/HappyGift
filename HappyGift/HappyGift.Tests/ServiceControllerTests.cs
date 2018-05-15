@@ -40,19 +40,19 @@ namespace HappyGift.Tests
             _context.Database.EnsureDeleted();
         }
 
-        [Test]
-        public void CreateService_ServiceCreated()
-        {
-            var result = _controller.CreateService(4);
-            Assert.IsInstanceOf<ViewResult>(result);
+        //[Test]
+        //public void CreateService_ServiceCreated()
+        //{
+        //    var result = _controller.CreateService(4);
+        //    Assert.IsInstanceOf<ViewResult>(result);
 
-            var viewResult = result as ViewResult;
+        //    var viewResult = result as ViewResult;
 
-            Assert.IsInstanceOf<ViewResult>(result);
-            Assert.IsNull(viewResult.Model);
+        //    Assert.IsInstanceOf<ViewResult>(result);
+        //    Assert.IsNull(viewResult.Model);
 
-            _context.Database.EnsureDeleted();
-        }
+        //    _context.Database.EnsureDeleted();
+        //}
 
         [Test]
         public void DeleteService_ServiceToDeleteId_ServiceDeleted()

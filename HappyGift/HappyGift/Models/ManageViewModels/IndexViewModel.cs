@@ -20,6 +20,10 @@ namespace HappyGift.Models.ManageViewModels
         [Display(Name = "Phone number")]
         public string PhoneNumber { get; set; }
 
+        
+        [Display(Name = "Place" )]
+        public string Place { get; set; }
+
         public string StatusMessage { get; set; }
     }
 }
