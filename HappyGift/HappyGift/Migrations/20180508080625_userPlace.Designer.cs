@@ -12,9 +12,10 @@ using System;
 namespace HappyGift.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180508080625_userPlace")]
+    partial class userPlace
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,8 +26,6 @@ namespace HappyGift.Migrations
                 {
                     b.Property<int>("CartId")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<string>("City");
 
                     b.Property<string>("UserId");
 
@@ -69,8 +68,6 @@ namespace HappyGift.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<string>("City");
 
                     b.Property<DateTime>("CreatedDate");
 
@@ -291,7 +288,6 @@ namespace HappyGift.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
-                    b.Property<int>("YearOfBirth");
                     b.Property<string>("Place");
 
                     b.HasIndex("NormalizedEmail")

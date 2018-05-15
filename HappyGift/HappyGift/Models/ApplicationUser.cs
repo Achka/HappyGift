@@ -11,6 +11,8 @@ namespace HappyGift.Models
     public class HappyGiftUser : IdentityUser
     {
         public virtual ICollection<Gift> Gifts { get; set; }
+
+        public string Place { get; set; }
         [DefaultValue(1900)]
         public int? YearOfBirth { get; set; }
     }

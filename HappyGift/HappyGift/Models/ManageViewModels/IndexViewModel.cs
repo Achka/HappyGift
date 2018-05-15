@@ -23,6 +23,10 @@ namespace HappyGift.Models.ManageViewModels
         [Display(Name = "Year Of Birth")]
         public int YearOfBirth { get; set; }
 
+        
+        [Display(Name = "Place" )]
+        public string Place { get; set; }
+
         public string StatusMessage { get; set; }
     }
 }

@@ -13,12 +13,13 @@ using Microsoft.Extensions.Options;
 using HappyGift.Models;
 using HappyGift.Models.ManageViewModels;
 using HappyGift.Services;
+using HappyGift.Data;
 
 namespace HappyGift.Controllers
 {
     [Authorize]
     [Route("[controller]/[action]")]
-    public class ManageController : Controller
+    public class ManageController :  BaseController
     {
         private readonly UserManager<HappyGiftUser> _userManager;
         private readonly SignInManager<HappyGiftUser> _signInManager;
@@ -29,12 +30,14 @@ namespace HappyGift.Controllers
         private const string AuthenicatorUriFormat = "otpauth://totp/{0}:{1}?secret={2}&issuer={0}&digits=6";
 
         public ManageController(
+          ApplicationDbContext context,
           UserManager<HappyGiftUser> userManager,
           SignInManager<HappyGiftUser> signInManager,
           IEmailSender emailSender,
           ILogger<ManageController> logger,
-          UrlEncoder urlEncoder)
+          UrlEncoder urlEncoder) : base(context, userManager)
         {
+            
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
@@ -61,7 +64,8 @@ namespace HappyGift.Controllers
                 PhoneNumber = user.PhoneNumber,
                 IsEmailConfirmed = user.EmailConfirmed,
                 StatusMessage = StatusMessage,
-                YearOfBirth = user.YearOfBirth.GetValueOrDefault(1900)
+                YearOfBirth = user.YearOfBirth.GetValueOrDefault(1900),
+                Place = user.Place
             };
 
             return View(model);
@@ -103,11 +107,22 @@ namespace HappyGift.Controllers
                 }
             }
 
+            var place = user.Place;
+            if (model.Place != place)
+            {
+
+                var _user = _context.Users.FirstOrDefault(u => u.Id == user.Id);
+                _user.Place = model.Place;
+                _context.Update(_user);
+                _context.SaveChanges();
+                
+            }
+
             await _userManager.UpdateAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToAction(nameof(Index));
         }
-
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SendVerificationEmail(IndexViewModel model)

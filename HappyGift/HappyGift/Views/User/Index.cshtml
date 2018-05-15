@@ -1,0 +1,20 @@
+﻿@using System.Collections.Generic
+@using HappyGift.Models.UserViewModels
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>List of all users: </h2>
+<br />
+<br />
+@model HappyGift.Models.UserViewModels.UserViewModel
+@foreach (var user in Model.Users)
+{
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3" style="text-align: center">
+            <p>UserName: @user.UserName </p>
+            <p>Place: @user.Place </p>
+        </div>        
+    </div>
+    <hr />
+}
