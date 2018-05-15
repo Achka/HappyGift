@@ -15,6 +15,8 @@ namespace HappyGift.Models
         [Key]
         public int CartId { get; set; }
 
+        public string City { get; set; }
+
         public string UserId { get; set; }
 
         public virtual ICollection<CartServices> CartServices { get; set; }

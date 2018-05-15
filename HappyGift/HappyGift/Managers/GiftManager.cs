@@ -36,6 +36,7 @@ namespace HappyGift.Managers
             var gift = new Gift
             {
                 UserId = userId,
+                City = cart.City,
                 CreatedDate = DateTime.Now,
                 GiftServices = giftServices,
             };

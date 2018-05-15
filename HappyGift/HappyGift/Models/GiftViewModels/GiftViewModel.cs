@@ -8,6 +8,7 @@ namespace HappyGift.Models.GiftViewModels
     {
         public string UserEmail { get; set; }
         public long GiftId { get; set; }
+        public string City { get; set; }
         public decimal TotalPrice { get; set; }
         public bool IsAcceptedByAdmin { get; set; }
         public DateTime CreatedDate { get; set; }

@@ -1,18 +1,29 @@
 ﻿@using System.Collections.Generic
 @using System.Globalization
-@model List<HappyGift.Models.GiftViewModels.GiftViewModel>
+@model HappyGift.Models.GiftViewModels.GiftHistoryViewModel
 @{
     ViewData["Title"] = "View";
 }
 
 <h2>Gifts history of orders</h2>
+<form  asp-controller="Gift" asp-action="SortByCity">
+            <div class="form-group">
+                <label asp-for="@Model.City" class="control-label"></label>
+                <input asp-for="@Model.City" class="form-control" type="text" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Filter" class="btn btn-edit-card" asp-controller="Gift"
+                       asp-action="SortByCity" asp-route-city="@Model.City" />
+            </div>
+        </form>
+
 
 
 <div class="old-gifts">
-    @if (Model.Any())
+    @if (Model.GiftViewModels.Any())
     {
     <ul class="list-group">
-        @foreach (var gift in Model)
+        @foreach (var gift in Model.GiftViewModels)
         {
         <li class="list-group-item">
             @if (gift.IsAcceptedByAdmin)
@@ -25,6 +36,7 @@
             {
                 <div class="alert alert-warning">Sorry, your gift has not been reviewed yet.</div>
             }
+            <div>City: @gift.City </div>
             <div>Requested Date: @gift.CreatedDate.ToString("MMM dd yyyy hh:mm tt", new CultureInfo("en-US"))</div>
             <div>Price: @gift.TotalPrice</div>
             @foreach (var service in gift.Services)

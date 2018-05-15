@@ -9,6 +9,17 @@
         <a asp-controller="Gift" asp-action="CreateGift" class="btn btn-success" style="display: block; margin: auto; width: 10%; margin-top: 20px;">Create Gift</a>
         <div style="text-align: center">Total Price: @Model.TotalPrice USD</div>
 
+        <form  asp-controller="Cart" asp-action="SaveCity">
+            <div class="form-group">
+                <label asp-for="City" class="control-label"></label>
+                <input asp-for="City" class="form-control" type="text" value="@Model.City" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-edit-card" asp-controller="Cart"
+                       asp-action="SaveCity" asp-route-city="@Model.City" asp-route-cartId="@Model.CartId" />
+            </div>
+        </form>
+
         <div class="services">
         @foreach (var item in Model.CartItems)
         {

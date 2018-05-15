@@ -33,7 +33,29 @@ namespace HappyGift.Controllers
             var model = _giftManager.GetGiftsByUser(currentUser.Id)
                                               .Select(g => g.ToGiftViewModel())
                                               .ToList();
-            return View(model);
+
+            var newModel = new GiftHistoryViewModel
+            {
+                GiftViewModels = model
+            };
+            return View(newModel);
+        }
+
+        public async Task<IActionResult> SortByCity(string city)
+        {
+            var currentUser = await GetCurrentUser();
+
+            var model = _giftManager.GetGiftsByUser(currentUser.Id)
+                .Select(g => g.ToGiftViewModel())
+                .Where(x=> x.City == city)
+                .ToList();
+
+            var newModel = new GiftHistoryViewModel
+            {
+                City = city,
+                GiftViewModels = model
+            };
+            return View("Index", newModel);
         }
 
         [HttpGet]
