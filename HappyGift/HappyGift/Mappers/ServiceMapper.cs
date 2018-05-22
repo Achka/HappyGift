@@ -21,7 +21,7 @@ namespace HappyGift.Mappers
 
         public static ServiceBaseViewModel ToServiceBaseViewModel(this CartServices cartServices)
         {
-            if(cartServices.Service == null)
+            if(cartServices?.Service == null)
             {
                 throw new NullReferenceException("Null reference exception occured in mapper class, please make sure you are eager loading the dependency.");
             }
@@ -31,9 +31,12 @@ namespace HappyGift.Mappers
                 ServiceDescription = cartServices.Service.Description,
                 ServiceImageURL = cartServices.Service.ImageUrl,
                 ServicePrice = cartServices.Service.Price,
-                AvarageAgeOfCustomer = Convert.ToInt32(cartServices.Service.GiftServices.Average(gs => (double)(DateTime.Now.Year - gs.Gift.User.YearOfBirth.GetValueOrDefault(1900)))),
-                MinAgeOfUser = cartServices.Service.GiftServices.Min(gs => DateTime.Now.Year - gs.Gift.User.YearOfBirth.GetValueOrDefault(1900)),
-                MaxAgeOfUser = cartServices.Service.GiftServices.Max(gs => DateTime.Now.Year - gs.Gift.User.YearOfBirth.GetValueOrDefault(1900))
+                AvarageAgeOfCustomer = Convert.ToInt32(cartServices.Service.GiftServices.Any() ?
+                    cartServices.Service.GiftServices.Average(gs => (double)(DateTime.Now.Year - gs.Gift.User?.YearOfBirth.GetValueOrDefault(1900)??0)) : 0),
+                MinAgeOfUser = cartServices.Service.GiftServices.Any() ?
+                    cartServices.Service.GiftServices.Min(gs => DateTime.Now.Year - gs.Gift?.User.YearOfBirth.GetValueOrDefault(1900)?? 0) : 0,
+                MaxAgeOfUser = cartServices.Service.GiftServices.Any() ?
+                cartServices.Service.GiftServices.Max(gs => DateTime.Now.Year - gs.Gift?.User.YearOfBirth.GetValueOrDefault(1900)??0) :0
             };
         }
 

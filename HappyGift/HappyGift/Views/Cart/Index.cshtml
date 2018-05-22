@@ -29,7 +29,14 @@
                     <h4 class="card-title">@item.ServiceName</h4>
                     <p class="card-text">@item.ServiceDescription</p>
                     <p class="card-text">Price: @item.ServicePrice USD</p>
-                    <p class="card-text">Users from @item.MinAgeOfUser years to @item.MaxAgeOfUser ordered this service</p>
+                    @if (item.MinAgeOfUser == 0 && item.MaxAgeOfUser == 0)
+                    {
+                        <p class="card-text">No users ordered this service yet</p>
+                    }
+                    else
+                    {
+                        <p class="card-text">Users from @item.MinAgeOfUser years to @item.MaxAgeOfUser ordered this service</p>
+                    }
                 </div>
                 <a asp-controller="Cart" asp-action="RemoveFromCart"
                    asp-route-cartServiceId="@item.ServiceId" class="btn btn-remove-card">Remove From Cart</a>
