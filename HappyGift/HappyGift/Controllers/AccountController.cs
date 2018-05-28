@@ -58,8 +58,6 @@ namespace HappyGift.Controllers
                 user.UserName = "default@default.com";
                 user.Email = "default@default.com";
 
-                //user.Place = "Lviv";
-
                 var userPWD = "Welcome1!";
 
                 IdentityResult chkUser = await _userManager.CreateAsync(user, userPWD);
