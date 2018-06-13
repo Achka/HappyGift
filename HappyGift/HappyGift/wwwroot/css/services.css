@@ -8,7 +8,7 @@
 
 .service {
     width: 30vw;
-    height: 65vh;
+    height: 80vh;
     margin: 0.5vw;
     padding: 3vw;
     display: flex;
@@ -93,4 +93,12 @@
     margin-top: 7px;
     font-size: 3.75vh;
     text-align: center;
+}
+
+
+.card.service .card-body .card-text-desc {
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
