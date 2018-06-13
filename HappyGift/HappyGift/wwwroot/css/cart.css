@@ -1,0 +1,19 @@
+﻿.cart-container {
+    width: 60%;
+    margin: 8vh auto;
+    text-align: center;
+}
+
+.cart-container .btn-remove-card {
+    width: 52%;
+}
+
+.cart-container .btn-edit-card {
+    width: 20%;
+}
+
+.cart-container .btn-success {
+    width: 17%;
+    border-radius: 20px;
+    margin: 3vh auto;
+}

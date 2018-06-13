@@ -8,24 +8,34 @@
 
 .service {
     width: 30vw;
+    height: 65vh;
     margin: 0.5vw;
     padding: 3vw;
     display: flex;
     font-size: 2.5vh;
     flex-direction: column;
+    justify-content: space-around;
+}
+
+.service .card-body {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 .service:hover {
     box-shadow: 0 0 10px #9e78ff;
+    transform: scale(1.05, 1.05);
 }
 
-.service:hover .card-body .card-title {
-    transform: scale(1.1, 1.1);
+/*.service:hover .card-body .card-title {
+    
 }
 
 .service:hover .card-body .card-img-top {
     transform: scale(1.1, 1.1);
-}
+}*/
 
 .service .card-body .card-title {
     font-size: 3vh;
@@ -39,11 +49,12 @@
 }
 
 .btn-add-card {
-    margin:0 auto;
+    margin: 0 auto;
     border-radius: 50px;
     background-color: #5dd27a;
-    padding: 8px 30px;
+    padding: 8px 17px;
     color: white;
+    width: 35%;
 }
 
 .btn-edit-card {
@@ -51,6 +62,7 @@
     background-color: #f7bd53;
     padding: 8px 30px;
     color: white;
+    width: 30%;
 }
 
 .btn-add-card:hover {
@@ -68,7 +80,8 @@
     background-color: #ff8763;
     margin: 0 auto;
     border-radius: 40px;
-    width: 50%;
+    width: 30%;
+    padding: 8px 30px;
 }
 
 .btn-remove-card:hover {

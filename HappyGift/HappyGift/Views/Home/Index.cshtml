@@ -7,6 +7,7 @@
 @foreach (var categoryServices in Model)
 {
     <div class="category-name">@categoryServices.Category</div>
+    <br/>
     <div class="services">
         @foreach (var service in categoryServices.Services)
         {
@@ -29,7 +30,7 @@
                                     <a class="btn btn-edit-card" asp-area="" asp-controller="Service"
                                        asp-action="Index" asp-route-serviceId="@service.Id">Edit</a>
 
-                                    <a class="btn btn-edit-card" asp-area="" asp-controller="Service"
+                                    <a class="btn btn-remove-card" asp-area="" asp-controller="Service"
                                        asp-action="DeleteService" asp-route-serviceId="@service.Id">Delete</a>
                                 }
                             </div>
@@ -40,5 +41,6 @@
             }
         }
     </div>
+    <hr />
 }
 

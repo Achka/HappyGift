@@ -81,6 +81,38 @@ namespace HappyGift.Tests
         }
 
         [Test]
+        public async Task SpecifyCity()
+        {
+            _context.Carts.Add(new Cart
+            {
+                CartId = 1,
+                UserId = _context.Users.FirstOrDefault().Id,
+                CartServices = new List<CartServices>
+                {
+                    new CartServices
+                    {
+                        CartServiceId = 1,
+                        CartId = 1,
+                        ServiceId = _context.Services.FirstOrDefault().Id,
+                    },
+                    new CartServices
+                    {
+                        CartServiceId = 2,
+                        CartId = 1,
+                        ServiceId = _context.Services.LastOrDefault().Id,
+                    }
+                }
+            });
+            _context.SaveChanges();
+            var result = await _controller.SaveCity("Lviv", 1);
+            Assert.IsInstanceOf<ActionResult>(result);
+
+            Assert.IsTrue(_context.Carts.FirstOrDefault(c => c.CartId == 1).City == "Lviv");
+            _context.Database.EnsureDeleted();
+
+        }
+
+        [Test]
         public async Task RemoveFromCart()
         {
             _context.Carts.Add(new Cart

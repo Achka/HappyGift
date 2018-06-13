@@ -41,6 +41,21 @@ namespace HappyGift.Tests
         }
 
         //[Test]
+        //public void CreateCategory_CategoryCreated()
+        //{
+        //    var model = new CreateCategoryViewModel();
+        //    model.Name = "relax";
+        //    model.Id = 1;
+        //    var result = _controller.CreateCategory(model);
+            
+        //    Assert.IsInstanceOf<RedirectToActionResult>(result);
+        //    Assert.IsTrue(_context.Category.FirstOrDefault(c => c.CategoryId == 1).CategoryId == 1);
+            
+        //    _context.Database.EnsureDeleted();
+            
+        //}
+
+        //[Test]
         //public void CreateService_ServiceCreated()
         //{
         //    var result = _controller.CreateService(4);

@@ -1,0 +1,24 @@
+﻿.gifts-container {
+    width: 50%;
+    margin: 8vh auto;
+
+}
+
+.gifts-container button {
+    margin: 3vh auto;
+}
+
+.form-group-gift {
+    display: flex;
+    justify-content: center;
+    margin-top: 4vh; 
+}
+
+.control-label-gift {
+    margin: 0 1vw;
+}
+
+.old-gifts {
+    width: 75%;
+    margin: 5vh auto;
+}

@@ -5,17 +5,20 @@
     ViewData["Title"] = "View";
 }
 
-<h2>Gifts history of orders</h2>
-<form  asp-controller="Gift" asp-action="SortByCity">
-            <div class="form-group">
-                <label asp-for="@Model.City" class="control-label"></label>
-                <input asp-for="@Model.City" class="form-control" type="text" />
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Filter" class="btn btn-edit-card" asp-controller="Gift"
-                       asp-action="SortByCity" asp-route-city="@Model.City" />
-            </div>
-        </form>
+<div class="gifts-container">
+    <h2>Gifts history of orders</h2>
+    <form asp-controller="Gift" asp-action="SortByCity">
+        <div class="form-group-gift">
+            <label asp-for="@Model.City" class="control-label-gift"></label>
+            <input asp-for="@Model.City" class="form-control" type="text" />
+        </div>
+        <div class="form-group-gift">
+            <input type="submit" value="Filter" class="btn btn-edit-card" asp-controller="Gift"
+                   asp-action="SortByCity" asp-route-city="@Model.City" />
+        </div>
+    </form>
+</div>
+
 
 
 
